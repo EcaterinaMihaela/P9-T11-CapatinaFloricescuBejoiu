@@ -1,4 +1,4 @@
-# P9-T11-C-p-n-FloricescuBejoiu
+# P9-T11-CapatinaFloricescuBejoiu
 
 Membrii Echipei:
 -Căpățînă Ecaterina-Mihaela(CR3.1A)
