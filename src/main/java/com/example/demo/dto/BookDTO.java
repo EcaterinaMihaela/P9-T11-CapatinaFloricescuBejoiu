@@ -9,4 +9,8 @@ public class BookDTO {
     private String isbn;
     private int availableStock;
     private String status;
+
+    private Long authorID;
+    private Long categoryID;
+    private Long publisherID;
 }

@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.BookDTO;
 import com.example.demo.model.Book;
-import com.example.demo.repository.BookRepository;
+import com.example.demo.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,41 +11,35 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookRepository bookRepository;
+    private final BookService bookService;
 
-    public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping
     public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+        return bookService.getAll();
     }
 
     @GetMapping("/{id}")
     public Book getBookById(@PathVariable Long id) {
-        return bookRepository.findById(id).orElse(null);
+        return bookService.getById(id);
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book) {
-        return bookRepository.save(book);
+    public Book createBook(@RequestBody BookDTO dto) {
+        return bookService.create(dto);
     }
 
+    // UpDATE BOOK
     @PutMapping("/{id}")
-    public Book updateBook(@PathVariable Long id, @RequestBody Book newBook) {
-        return bookRepository.findById(id).map(book -> {
-            book.setBookTitle(newBook.getBookTitle());
-            book.setBookDescription(newBook.getBookDescription());
-            book.setISBN(newBook.getISBN());
-            book.setAvailableStock(newBook.getAvailableStock());
-            book.setStatus(newBook.getStatus());
-            return bookRepository.save(book);
-        }).orElse(null);
+    public Book updateBook(@PathVariable Long id, @RequestBody BookDTO dto) {
+        return bookService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable Long id) {
-        bookRepository.deleteById(id);
+        bookService.delete(id);
     }
 }

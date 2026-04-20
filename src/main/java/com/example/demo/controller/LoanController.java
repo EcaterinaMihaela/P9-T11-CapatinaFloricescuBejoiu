@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/loans")
 public class LoanController {
@@ -18,28 +17,27 @@ public class LoanController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Loan>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+    public List<Loan> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Loan> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getById(id));
+    public Loan getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Loan> create(@RequestBody Loan l) {
-        return ResponseEntity.ok(service.create(l));
+    public Loan create(@RequestBody Loan loan) {
+        return service.create(loan);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Loan> update(@PathVariable Long id, @RequestBody Loan l) {
-        return ResponseEntity.ok(service.update(id, l));
+    public Loan update(@PathVariable Long id, @RequestBody Loan loan) {
+        return service.update(id, loan);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.noContent().build();
     }
 }

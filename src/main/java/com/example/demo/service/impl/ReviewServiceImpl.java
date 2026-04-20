@@ -34,6 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review update(Long id, Review review) {
         return repo.findById(id).map(r -> {
+            r.setReviewDate(review.getReviewDate());
             r.setRating(review.getRating());
             r.setReviewText(review.getReviewText());
             r.setMember(review.getMember());
