@@ -21,6 +21,6 @@ public class UserProfile {
     private String address;
 
     @OneToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "user_user_id")
     private User user;
 }

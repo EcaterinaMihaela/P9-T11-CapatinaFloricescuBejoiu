@@ -21,5 +21,6 @@ public class SecurityLog {
     private String affectedTable;
 
     @ManyToOne
+    @JoinColumn(name = "user_user_id")
     private User user;
 }

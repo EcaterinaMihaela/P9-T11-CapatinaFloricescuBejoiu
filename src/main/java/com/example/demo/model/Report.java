@@ -21,5 +21,6 @@ public class Report {
     private String format;
 
     @ManyToOne
+    @JoinColumn(name = "user_user_id")
     private User user;
 }
