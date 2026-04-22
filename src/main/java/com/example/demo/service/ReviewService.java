@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ReviewDTO;
 import com.example.demo.model.Review;
+
 import java.util.List;
 
 public interface ReviewService {
@@ -9,9 +11,9 @@ public interface ReviewService {
 
     Review getById(Long id);
 
-    Review create(Review review);
+    Review create(ReviewDTO dto);
 
-    Review update(Long id, Review review);
+    Review update(Long id, ReviewDTO dto);
 
     void delete(Long id);
 }

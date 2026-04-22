@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.MemberDTO;
 import com.example.demo.model.Member;
 import com.example.demo.service.MemberService;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,14 @@ public class MemberController {
     }
 
     @PostMapping
-    public Member create(@RequestBody Member m) {
-        return service.create(m);
+    public Member create(@RequestBody MemberDTO dto) {
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public Member update(@PathVariable Long id, @RequestBody Member m) {
-        return service.update(id, m);
+    public Member update(@PathVariable Long id,
+                         @RequestBody MemberDTO dto) {
+        return service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")

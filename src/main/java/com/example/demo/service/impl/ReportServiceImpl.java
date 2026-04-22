@@ -1,7 +1,9 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.ReportDTO;
 import com.example.demo.model.Report;
-import com.example.demo.repository.ReportRepository;
+import com.example.demo.model.User;
+import com.example.demo.repository.RepositoryWrapper;
 import com.example.demo.service.ReportService;
 import org.springframework.stereotype.Service;
 
@@ -10,44 +12,57 @@ import java.util.List;
 @Service
 public class ReportServiceImpl implements ReportService {
 
-    private final ReportRepository repo;
+    private final RepositoryWrapper repo;
 
-    public ReportServiceImpl(ReportRepository repo) {
+    public ReportServiceImpl(RepositoryWrapper repo) {
         this.repo = repo;
     }
 
     @Override
     public List<Report> getAll() {
-        return repo.findAll();
+        return repo.report.findAll();
     }
 
     @Override
     public Report getById(Long id) {
-        return repo.findById(id).orElse(null);
+        return repo.report.findById(id).orElse(null);
     }
 
     @Override
-    public Report create(Report report) {
-        return repo.save(report);
+    public Report create(ReportDTO dto) {
+
+        User user = repo.user.findById(dto.getUserID()).orElse(null);
+
+        Report r = new Report();
+        r.setType(dto.getType());
+        r.setGenerationDate(dto.getGenerationDate());
+        r.setGenerationTime(dto.getGenerationTime());
+        r.setFormat(dto.getFormat());
+        r.setUser(user);
+
+        return repo.report.save(r);
     }
 
     @Override
-    public Report update(Long id, Report r) {
-        return repo.findById(id).map(rep -> {
+    public Report update(Long id, ReportDTO dto) {
 
-            rep.setType(r.getType());
-            rep.setGenerationDate(r.getGenerationDate());
-            rep.setGenerationTime(r.getGenerationTime());
-            rep.setFormat(r.getFormat());
-            rep.setUser(r.getUser());
+        return repo.report.findById(id).map(r -> {
 
-            return repo.save(rep);
+            r.setType(dto.getType());
+            r.setGenerationDate(dto.getGenerationDate());
+            r.setGenerationTime(dto.getGenerationTime());
+            r.setFormat(dto.getFormat());
+
+            User user = repo.user.findById(dto.getUserID()).orElse(null);
+            r.setUser(user);
+
+            return repo.report.save(r);
 
         }).orElse(null);
     }
 
     @Override
     public void delete(Long id) {
-        repo.deleteById(id);
+        repo.report.deleteById(id);
     }
 }

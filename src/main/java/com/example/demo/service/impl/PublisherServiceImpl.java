@@ -1,7 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.PublisherDTO;
 import com.example.demo.model.Publisher;
-import com.example.demo.repository.PublisherRepository;
+import com.example.demo.repository.RepositoryWrapper;
 import com.example.demo.service.PublisherService;
 import org.springframework.stereotype.Service;
 
@@ -10,37 +11,45 @@ import java.util.List;
 @Service
 public class PublisherServiceImpl implements PublisherService {
 
-    private final PublisherRepository repo;
+    private final RepositoryWrapper repo;
 
-    public PublisherServiceImpl(PublisherRepository repo) {
+    public PublisherServiceImpl(RepositoryWrapper repo) {
         this.repo = repo;
     }
 
     @Override
     public List<Publisher> getAll() {
-        return repo.findAll();
+        return repo.publisher.findAll();
     }
 
     @Override
     public Publisher getById(Long id) {
-        return repo.findById(id).orElse(null);
+        return repo.publisher.findById(id).orElse(null);
     }
 
     @Override
-    public Publisher create(Publisher publisher) {
-        return repo.save(publisher);
+    public Publisher create(PublisherDTO dto) {
+
+        Publisher publisher = new Publisher();
+        publisher.setPublisherName(dto.getPublisherName());
+
+        return repo.publisher.save(publisher);
     }
 
     @Override
-    public Publisher update(Long id, Publisher newPublisher) {
-        return repo.findById(id).map(publisher -> {
-            publisher.setPublisherName(newPublisher.getPublisherName());
-            return repo.save(publisher);
+    public Publisher update(Long id, PublisherDTO dto) {
+
+        return repo.publisher.findById(id).map(p -> {
+
+            p.setPublisherName(dto.getPublisherName());
+
+            return repo.publisher.save(p);
+
         }).orElse(null);
     }
 
     @Override
     public void delete(Long id) {
-        repo.deleteById(id);
+        repo.publisher.deleteById(id);
     }
 }

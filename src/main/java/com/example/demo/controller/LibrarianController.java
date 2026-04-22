@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.LibrarianDTO;
 import com.example.demo.model.Librarian;
 import com.example.demo.service.LibrarianService;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,14 @@ public class LibrarianController {
     }
 
     @PostMapping
-    public ResponseEntity<Librarian> create(@RequestBody Librarian l) {
-        return ResponseEntity.ok(service.create(l));
+    public ResponseEntity<Librarian> create(@RequestBody LibrarianDTO dto) {
+        return ResponseEntity.ok(service.create(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Librarian> update(@PathVariable Long id, @RequestBody Librarian l) {
-        return ResponseEntity.ok(service.update(id, l));
+    public ResponseEntity<Librarian> update(@PathVariable Long id,
+                                            @RequestBody LibrarianDTO dto) {
+        return ResponseEntity.ok(service.update(id, dto));
     }
 
     @DeleteMapping("/{id}")

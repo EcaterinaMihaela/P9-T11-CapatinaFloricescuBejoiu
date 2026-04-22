@@ -1,56 +1,87 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Loan;
-import com.example.demo.repository.LoanRepository;
+import com.example.demo.dto.LoanDTO;
+import com.example.demo.model.*;
+import com.example.demo.repository.RepositoryWrapper;
 import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class LoanServiceImpl implements LoanService {
 
-    private final LoanRepository repo;
+    private final RepositoryWrapper repo;
 
-    public LoanServiceImpl(LoanRepository repo) {
+    public LoanServiceImpl(RepositoryWrapper repo) {
         this.repo = repo;
     }
 
     @Override
     public List<Loan> getAll() {
-        return repo.findAll();
+        return repo.loan.findAllSafe();
     }
 
     @Override
     public Loan getById(Long id) {
-        return repo.findById(id).orElse(null);
+        return repo.loan.findByIdSafe(id).orElse(null);
     }
 
     @Override
-    public Loan create(Loan l) {
-        return repo.save(l);
+    public Loan create(LoanDTO dto) {
+
+        Loan loan = new Loan();
+
+        loan.setBorrowDate(LocalDate.parse(dto.getBorrowDate()));
+        loan.setDueDate(LocalDate.parse(dto.getDueDate()));
+
+        if (dto.getReturnDate() != null) {
+            loan.setReturnDate(LocalDate.parse(dto.getReturnDate()));
+        }
+
+        loan.setStatus(dto.getStatus());
+
+        Member member = repo.member.findByIdSafe(dto.getMemberId()).orElse(null);
+        Librarian librarian = repo.librarian.findByIdSafe(dto.getLibrarianId()).orElse(null);
+        Book book = repo.book.findByIdSafe(dto.getBookId()).orElse(null);
+
+        loan.setMember(member);
+        loan.setLibrarian(librarian);
+        loan.setBook(book);
+
+        return repo.loan.saveSafe(loan);
     }
 
     @Override
-    public Loan update(Long id, Loan l) {
-        return repo.findById(id).map(loan -> {
+    public Loan update(Long id, LoanDTO dto) {
 
-            loan.setBorrowDate(l.getBorrowDate());
-            loan.setDueDate(l.getDueDate());
-            loan.setReturnDate(l.getReturnDate());
-            loan.setStatus(l.getStatus());
+        return repo.loan.findByIdSafe(id).map(loan -> {
 
-            loan.setMember(l.getMember());
-            loan.setLibrarian(l.getLibrarian());
-            loan.setBook(l.getBook());
+            loan.setBorrowDate(LocalDate.parse(dto.getBorrowDate()));
+            loan.setDueDate(LocalDate.parse(dto.getDueDate()));
 
-            return repo.save(loan);
+            if (dto.getReturnDate() != null) {
+                loan.setReturnDate(LocalDate.parse(dto.getReturnDate()));
+            }
+
+            loan.setStatus(dto.getStatus());
+
+            Member member = repo.member.findByIdSafe(dto.getMemberId()).orElse(null);
+            Librarian librarian = repo.librarian.findByIdSafe(dto.getLibrarianId()).orElse(null);
+            Book book = repo.book.findByIdSafe(dto.getBookId()).orElse(null);
+
+            loan.setMember(member);
+            loan.setLibrarian(librarian);
+            loan.setBook(book);
+
+            return repo.loan.saveSafe(loan);
 
         }).orElse(null);
     }
 
     @Override
     public void delete(Long id) {
-        repo.deleteById(id);
+        repo.loan.deleteSafe(id);
     }
 }

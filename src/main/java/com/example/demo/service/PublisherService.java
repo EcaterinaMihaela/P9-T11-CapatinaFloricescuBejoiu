@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PublisherDTO;
 import com.example.demo.model.Publisher;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface PublisherService {
 
     Publisher getById(Long id);
 
-    Publisher create(Publisher publisher);
+    Publisher create(PublisherDTO dto);
 
-    Publisher update(Long id, Publisher publisher);
+    Publisher update(Long id, PublisherDTO dto);
 
     void delete(Long id);
 }

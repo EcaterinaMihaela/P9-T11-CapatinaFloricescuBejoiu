@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ReportDTO;
 import com.example.demo.model.Report;
 import com.example.demo.service.ReportService;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,14 @@ public class ReportController {
     }
 
     @PostMapping
-    public Report create(@RequestBody Report report) {
-        return service.create(report);
+    public Report create(@RequestBody ReportDTO dto) {
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public Report update(@PathVariable Long id, @RequestBody Report report) {
-        return service.update(id, report);
+    public Report update(@PathVariable Long id,
+                         @RequestBody ReportDTO dto) {
+        return service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")

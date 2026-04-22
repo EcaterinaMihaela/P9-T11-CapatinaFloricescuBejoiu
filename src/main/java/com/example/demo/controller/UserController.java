@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.UserDTO;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,13 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@RequestBody User user) {
-        return service.create(user);
+    public User create(@RequestBody UserDTO dto) {
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public User update(@PathVariable Long id, @RequestBody User user) {
-        return service.update(id, user);
+    public User update(@PathVariable Long id, @RequestBody UserDTO dto) {
+        return service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")

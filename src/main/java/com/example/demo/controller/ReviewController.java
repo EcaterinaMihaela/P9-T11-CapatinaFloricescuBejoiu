@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ReviewDTO;
 import com.example.demo.model.Review;
 import com.example.demo.service.ReviewService;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,13 @@ public class ReviewController {
     }
 
     @PostMapping
-    public Review create(@RequestBody Review review) {
-        return service.create(review);
+    public Review create(@RequestBody ReviewDTO dto) {
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public Review update(@PathVariable Long id, @RequestBody Review review) {
-        return service.update(id, review);
+    public Review update(@PathVariable Long id, @RequestBody ReviewDTO dto) {
+        return service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")

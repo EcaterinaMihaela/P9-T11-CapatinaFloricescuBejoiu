@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.LoanDTO;
 import com.example.demo.model.Loan;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface LoanService {
 
     Loan getById(Long id);
 
-    Loan create(Loan loan);
+    Loan create(LoanDTO dto);
 
-    Loan update(Long id, Loan loan);
+    Loan update(Long id, LoanDTO dto);
 
     void delete(Long id);
 }

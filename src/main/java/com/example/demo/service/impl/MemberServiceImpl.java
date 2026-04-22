@@ -1,7 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.MemberDTO;
 import com.example.demo.model.Member;
-import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.RepositoryWrapper;
 import com.example.demo.service.MemberService;
 import org.springframework.stereotype.Service;
 
@@ -10,26 +11,49 @@ import java.util.List;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberRepository repo;
+    private final RepositoryWrapper repo;
 
-    public MemberServiceImpl(MemberRepository repo) {
+    public MemberServiceImpl(RepositoryWrapper repo) {
         this.repo = repo;
     }
 
-    public List<Member> getAll() { return repo.findAll(); }
+    @Override
+    public List<Member> getAll() {
+        return repo.member.findAllSafe();
+    }
 
-    public Member getById(Long id) { return repo.findById(id).orElse(null); }
+    @Override
+    public Member getById(Long id) {
+        return repo.member.findByIdSafe(id).orElse(null);
+    }
 
-    public Member create(Member m) { return repo.save(m); }
+    @Override
+    public Member create(MemberDTO dto) {
 
-    public Member update(Long id, Member m) {
-        return repo.findById(id).map(x -> {
-            x.setBorrowLimit(m.getBorrowLimit());
-            x.setStatus(m.getStatus());
-            x.setBanReason(m.getBanReason());
-            return repo.save(x);
+        Member m = new Member();
+        m.setBorrowLimit(dto.getBorrowLimit());
+        m.setStatus(dto.getStatus());
+        m.setBanReason(dto.getBanReason());
+
+        return repo.member.saveSafe(m);
+    }
+
+    @Override
+    public Member update(Long id, MemberDTO dto) {
+
+        return repo.member.findByIdSafe(id).map(m -> {
+
+            m.setBorrowLimit(dto.getBorrowLimit());
+            m.setStatus(dto.getStatus());
+            m.setBanReason(dto.getBanReason());
+
+            return repo.member.saveSafe(m);
+
         }).orElse(null);
     }
 
-    public void delete(Long id) { repo.deleteById(id); }
+    @Override
+    public void delete(Long id) {
+        repo.member.deleteSafe(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.PublisherDTO;
 import com.example.demo.model.Publisher;
 import com.example.demo.service.PublisherService;
 import org.springframework.web.bind.annotation.*;
@@ -16,31 +17,27 @@ public class PublisherController {
         this.service = service;
     }
 
-    // GET ALL
     @GetMapping
     public List<Publisher> getAll() {
         return service.getAll();
     }
 
-    // GET BY ID
     @GetMapping("/{id}")
     public Publisher getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
-    // CREATE
     @PostMapping
-    public Publisher create(@RequestBody Publisher p) {
-        return service.create(p);
+    public Publisher create(@RequestBody PublisherDTO dto) {
+        return service.create(dto);
     }
 
-    // UPDATE
     @PutMapping("/{id}")
-    public Publisher update(@PathVariable Long id, @RequestBody Publisher p) {
-        return service.update(id, p);
+    public Publisher update(@PathVariable Long id,
+                            @RequestBody PublisherDTO dto) {
+        return service.update(id, dto);
     }
 
-    // DELETE
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);

@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ReservationDTO;
 import com.example.demo.model.Reservation;
+
 import java.util.List;
 
 public interface ReservationService {
@@ -9,9 +11,9 @@ public interface ReservationService {
 
     Reservation getById(Long id);
 
-    Reservation create(Reservation reservation);
+    Reservation create(ReservationDTO dto);
 
-    Reservation update(Long id, Reservation reservation);
+    Reservation update(Long id, ReservationDTO dto);
 
     void delete(Long id);
 }

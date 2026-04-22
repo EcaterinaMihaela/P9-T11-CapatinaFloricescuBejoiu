@@ -1,52 +1,68 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.NotificationDTO;
 import com.example.demo.model.Notification;
-import com.example.demo.repository.NotificationRepository;
+import com.example.demo.model.User;
+import com.example.demo.repository.RepositoryWrapper;
 import com.example.demo.service.NotificationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
-    private final NotificationRepository repo;
+    private final RepositoryWrapper repo;
 
-    public NotificationServiceImpl(NotificationRepository repo) {
+    public NotificationServiceImpl(RepositoryWrapper repo) {
         this.repo = repo;
     }
 
     @Override
     public List<Notification> getAll() {
-        return repo.findAll();
+        return repo.notification.findAll();
     }
 
     @Override
     public Notification getById(Long id) {
-        return repo.findById(id).orElse(null);
+        return repo.notification.findById(id).orElse(null);
     }
 
     @Override
-    public Notification create(Notification n) {
-        return repo.save(n);
+    public Notification create(NotificationDTO dto) {
+
+        User user = repo.user.findById(dto.getUserID()).orElse(null);
+
+        Notification n = new Notification();
+        n.setSendingDate(dto.getSendingDate());
+        n.setSendingTime(dto.getSendingTime());
+        n.setType(dto.getType());
+        n.setMessage(dto.getMessage());
+        n.setUser(user);
+
+        return repo.notification.save(n);
     }
 
     @Override
-    public Notification update(Long id, Notification n) {
-        return repo.findById(id).map(notif -> {
+    public Notification update(Long id, NotificationDTO dto) {
 
-            notif.setSendingDate(n.getSendingDate());
-            notif.setSendingTime(n.getSendingTime());
-            notif.setType(n.getType());
-            notif.setMessage(n.getMessage());
-            notif.setUser(n.getUser());
+        return repo.notification.findById(id).map(n -> {
 
-            return repo.save(notif);
+            n.setSendingDate(dto.getSendingDate());
+            n.setSendingTime(dto.getSendingTime());
+            n.setType(dto.getType());
+            n.setMessage(dto.getMessage());
+
+            User user = repo.user.findById(dto.getUserID()).orElse(null);
+            n.setUser(user);
+
+            return repo.notification.save(n);
 
         }).orElse(null);
     }
 
     @Override
     public void delete(Long id) {
-        repo.deleteById(id);
+        repo.notification.deleteById(id);
     }
 }

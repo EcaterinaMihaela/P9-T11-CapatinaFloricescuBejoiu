@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ReportDTO;
 import com.example.demo.model.Report;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface ReportService {
 
     Report getById(Long id);
 
-    Report create(Report report);
+    Report create(ReportDTO dto);
 
-    Report update(Long id, Report report);
+    Report update(Long id, ReportDTO dto);
 
     void delete(Long id);
 }

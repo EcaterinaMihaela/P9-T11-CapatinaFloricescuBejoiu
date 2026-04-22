@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.NotificationDTO;
 import com.example.demo.model.Notification;
 import com.example.demo.service.NotificationService;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +27,14 @@ public class NotificationController {
     }
 
     @PostMapping
-    public Notification create(@RequestBody Notification n) {
-        return service.create(n);
+    public Notification create(@RequestBody NotificationDTO dto) {
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public Notification update(@PathVariable Long id, @RequestBody Notification n) {
-        return service.update(id, n);
+    public Notification update(@PathVariable Long id,
+                               @RequestBody NotificationDTO dto) {
+        return service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")

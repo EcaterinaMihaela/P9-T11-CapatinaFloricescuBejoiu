@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.LoanDTO;
 import com.example.demo.model.Loan;
 import com.example.demo.service.LoanService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/loans")
 public class LoanController {
@@ -17,27 +19,29 @@ public class LoanController {
     }
 
     @GetMapping
-    public List<Loan> getAll() {
-        return service.getAll();
+    public ResponseEntity<List<Loan>> getAll() {
+        return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("/{id}")
-    public Loan getById(@PathVariable Long id) {
-        return service.getById(id);
+    public ResponseEntity<Loan> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @PostMapping
-    public Loan create(@RequestBody Loan loan) {
-        return service.create(loan);
+    public ResponseEntity<Loan> create(@RequestBody LoanDTO dto) {
+        return ResponseEntity.ok(service.create(dto));
     }
 
     @PutMapping("/{id}")
-    public Loan update(@PathVariable Long id, @RequestBody Loan loan) {
-        return service.update(id, loan);
+    public ResponseEntity<Loan> update(@PathVariable Long id,
+                                       @RequestBody LoanDTO dto) {
+        return ResponseEntity.ok(service.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

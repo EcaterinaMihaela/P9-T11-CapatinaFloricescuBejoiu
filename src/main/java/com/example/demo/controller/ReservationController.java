@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ReservationDTO;
 import com.example.demo.model.Reservation;
 import com.example.demo.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,14 @@ public class ReservationController {
     }
 
     @PostMapping
-    public Reservation create(@RequestBody Reservation reservation) {
-        return service.create(reservation);
+    public Reservation create(@RequestBody ReservationDTO dto) {
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public Reservation update(@PathVariable Long id, @RequestBody Reservation reservation) {
-        return service.update(id, reservation);
+    public Reservation update(@PathVariable Long id,
+                              @RequestBody ReservationDTO dto) {
+        return service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")

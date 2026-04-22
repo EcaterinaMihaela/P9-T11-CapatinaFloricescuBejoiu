@@ -1,6 +1,9 @@
 package com.example.demo.service.impl;
+
+import com.example.demo.dto.LibrarianDTO;
 import com.example.demo.model.Librarian;
-import com.example.demo.repository.LibrarianRepository;
+import com.example.demo.model.User;
+import com.example.demo.repository.RepositoryWrapper;
 import com.example.demo.service.LibrarianService;
 import org.springframework.stereotype.Service;
 
@@ -9,24 +12,49 @@ import java.util.List;
 @Service
 public class LibrarianServiceImpl implements LibrarianService {
 
-    private final LibrarianRepository repo;
+    private final RepositoryWrapper repo;
 
-    public LibrarianServiceImpl(LibrarianRepository repo) {
+    public LibrarianServiceImpl(RepositoryWrapper repo) {
         this.repo = repo;
     }
 
-    public List<Librarian> getAll() { return repo.findAll(); }
+    @Override
+    public List<Librarian> getAll() {
+        return repo.librarian.findAllSafe();
+    }
 
-    public Librarian getById(Long id) { return repo.findById(id).orElse(null); }
+    @Override
+    public Librarian getById(Long id) {
+        return repo.librarian.findByIdSafe(id).orElse(null);
+    }
 
-    public Librarian create(Librarian l) { return repo.save(l); }
+    @Override
+    public Librarian create(LibrarianDTO dto) {
 
-    public Librarian update(Long id, Librarian l) {
-        return repo.findById(id).map(x -> {
-            x.setResponsibilities(l.getResponsibilities());
-            return repo.save(x);
+        User user = repo.user.findByIdSafe(dto.getLibrarianId())
+                .orElse(null);
+
+        Librarian librarian = new Librarian();
+        librarian.setUser(user);
+        librarian.setResponsibilities(dto.getResponsibilities());
+
+        return repo.librarian.saveSafe(librarian);
+    }
+
+    @Override
+    public Librarian update(Long id, LibrarianDTO dto) {
+
+        return repo.librarian.findByIdSafe(id).map(l -> {
+
+            l.setResponsibilities(dto.getResponsibilities());
+
+            return repo.librarian.saveSafe(l);
+
         }).orElse(null);
     }
 
-    public void delete(Long id) { repo.deleteById(id); }
+    @Override
+    public void delete(Long id) {
+        repo.librarian.deleteSafe(id);
+    }
 }
