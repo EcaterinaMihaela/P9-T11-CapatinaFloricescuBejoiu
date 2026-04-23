@@ -20,12 +20,18 @@ public class AuthServiceImpl implements AuthService {
     public LoginResponseDTO login(LoginRequestDTO request) {
 
         User user = repo.user.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("Wrong username."));
+                .orElse(null);
+
+        if (user == null) {
+            return new LoginResponseDTO(null, null, "FAIL");
+        }
 
         if (!user.getPassword().equals(request.getPassword())) {
-            throw new RuntimeException("Wrong password.");
+            return new LoginResponseDTO(null, null, "FAIL");
         }
 
         return new LoginResponseDTO(user.getUserid(), user.getUsername(), user.getRole());
     }
+
+
 }

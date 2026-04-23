@@ -1,21 +1,55 @@
-document.querySelector("form").addEventListener("submit", function(e) {
-    e.preventDefault();
+console.log("login.js loaded");
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+document.addEventListener("DOMContentLoaded", () => {
 
-    fetch("/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-    })
-    .then(res => {
-        if(res.ok) {
-            window.location.href = "/dashboard";
-        } else {
-            alert("Login failed");
+    const form = document.getElementById("loginForm");
+
+    form.onsubmit = async function (e) {
+        e.preventDefault();
+
+        console.log("submit triggered");
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        try {
+            const response = await fetch("http://localhost:8080/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) {
+                alert("Invalid username or password");
+                return;
+            }
+
+            const data = await response.json();
+
+            console.log("response:", data);
+
+            if (!data || !data.username || !data.role || !data.userId) {
+                alert("Invalid credentials");
+                return;
+            }
+
+            if (data.username !== username) {
+                alert("Wrong credentials");
+                return;
+            }
+
+            localStorage.setItem("role", data.role);
+            localStorage.setItem("userId", data.userId);
+            localStorage.setItem("username", data.username);
+
+            window.location.replace("/dashboard.html");
+
+        } catch (err) {
+            console.error("Login error:", err);
+            alert("Server error");
         }
-    });
+    };
+
 });
