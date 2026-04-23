@@ -4,7 +4,7 @@ import com.example.demo.dto.ReviewDTO;
 import com.example.demo.model.Book;
 import com.example.demo.model.Member;
 import com.example.demo.model.Review;
-import com.example.demo.repository.RepositoryWrapper;
+import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.ReviewService;
 import org.springframework.stereotype.Service;
 

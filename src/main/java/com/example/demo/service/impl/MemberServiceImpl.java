@@ -2,7 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.model.Member;
-import com.example.demo.repository.RepositoryWrapper;
+import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.MemberService;
 import org.springframework.stereotype.Service;
 

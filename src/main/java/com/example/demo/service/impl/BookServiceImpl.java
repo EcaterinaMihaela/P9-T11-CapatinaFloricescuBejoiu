@@ -2,7 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.BookDTO;
 import com.example.demo.model.*;
-import com.example.demo.repository.RepositoryWrapper;
+import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.BookService;
 import org.springframework.stereotype.Service;
 

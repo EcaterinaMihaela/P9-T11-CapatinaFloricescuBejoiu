@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.dto.ReportDTO;
 import com.example.demo.model.Report;
 import com.example.demo.model.User;
-import com.example.demo.repository.RepositoryWrapper;
+import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.ReportService;
 import org.springframework.stereotype.Service;
 

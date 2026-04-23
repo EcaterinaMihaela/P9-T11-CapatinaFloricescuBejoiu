@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.dto.SecurityLogDTO;
 import com.example.demo.model.SecurityLog;
 import com.example.demo.model.User;
-import com.example.demo.repository.RepositoryWrapper;
+import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.SecurityLogService;
 import org.springframework.stereotype.Service;
 
