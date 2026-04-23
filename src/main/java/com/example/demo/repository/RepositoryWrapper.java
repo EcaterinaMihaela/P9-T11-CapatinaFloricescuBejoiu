@@ -1,6 +1,5 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.SecurityLog;
 import org.springframework.stereotype.Component;
 
 @Component
