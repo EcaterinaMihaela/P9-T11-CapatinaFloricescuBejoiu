@@ -263,3 +263,74 @@ form {
 .input-group small a:hover {
     text-decoration: underline;
 }
+
+
+/* =========================
+   ABOUT CONTAINER
+========================= */
+.about-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 650px;
+    max-width: 95%;
+    text-align: center;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+}
+
+/* TITLES */
+.about-container h1 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.about-container h2 {
+    margin-bottom: 15px;
+    margin-top: 20px;
+    color: #666;
+}
+
+/* TEXT */
+.about-container p {
+    color: #444;
+    line-height: 1.6;
+}
+
+/* LIST */
+.about-container ul {
+    text-align: left;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* =========================
+   MAIN BUTTON
+========================= */
+.main-btn {
+    width: 100%;
+    padding: 12px;
+    background: #4ca1af;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.main-btn:hover {
+    background: #357f8a;
+    transform: translateY(-1px);
+}
+
+/* =========================
+   PAGE WRAPPER
+========================= */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
