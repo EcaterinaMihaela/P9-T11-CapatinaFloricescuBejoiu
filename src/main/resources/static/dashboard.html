@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System - Books Catalog</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS-ul tău -->
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow sticky-top custom-navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3 brand-title" href="#">Library System</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Books</a></li>
+                <li class="nav-item"><a class="nav-link" href="/notification.html">Notifications</a></li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Member Area</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/profile.html">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">My Loans</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown border-start ps-lg-2">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Staff Tools</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/BookManagementLibrarian.html">Catalog Management</a></li>
+                        <li><a class="dropdown-item" href="/LoanInterface.html">Loan Management</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="d-flex">
+                <a href="login.html" class="btn btn-outline-light btn-sm fw-bold">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="admin-container">
+    <h1>Books Catalog</h1>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search for books, authors or categories...">
+    </div>
+
+    <div class="filters">
+        <select>
+            <option>All Authors</option>
+        </select>
+
+        <select>
+            <option>All Categories</option>
+        </select>
+
+        <select>
+            <option>All Years</option>
+        </select>
+    </div>
+
+    <div class="book-grid">
+
+        <div class="book-card">
+            <img src="81T4dS6IkaL._AC_UF1000,1000_QL80_ - Copy.jpg">
+            <h3>The Great Gatsby</h3>
+            <p>F. Scott Fitzgerald</p>
+            <p>Classic Literature</p>
+            <span class="status-badge available">Available</span>
+            <a href="../interfataBook/BookInterface.html" class="details-btn">View Details</a>
+        </div>
+
+        <div class="book-card">
+            <img src="shopping.webp">
+            <h3>Harry Potter</h3>
+            <p>J.K. Rowling</p>
+            <p>Fantasy</p>
+            <span class="status-badge borrowed">Borrowed</span>
+            <a href="../interfataBook/BookInterface.html" class="details-btn">View Details</a>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
