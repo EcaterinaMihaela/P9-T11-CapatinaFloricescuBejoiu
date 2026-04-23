@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
         user.setUsername(dto.getUsername());
         user.setPassword(dto.getPassword());
         user.setRole(dto.getRole());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
         return repo.user.save(user);
     }
@@ -48,7 +47,6 @@ public class UserServiceImpl implements UserService {
         existing.setUsername(dto.getUsername());
         existing.setPassword(dto.getPassword());
         existing.setRole(dto.getRole());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
         return repo.user.save(existing);
     }

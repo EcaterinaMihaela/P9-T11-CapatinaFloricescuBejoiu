@@ -8,7 +8,7 @@ import jakarta.persistence.NoResultException;
 import java.util.Optional;
 
 @Repository
-public class UserRepository {
+public class UserRepositoryImpl {
 
     @PersistenceContext
     private EntityManager entityManager;
