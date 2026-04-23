@@ -1,3 +1,4 @@
+/*LOGIN*/
 /* =========================
    GLOBAL
 ========================= */
@@ -10,13 +11,15 @@ body {
 }
 
 /* =========================
-   NAVBAR (GLOBAL - REUTILIZABIL)
+   NAVBAR
 ========================= */
 .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     width: 100%;
-    background: linear-gradient(120deg, #2c3e50, #4ca1af);
-    padding: 15px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    background: rgba(44, 62, 80, 0.98);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-container {
@@ -26,55 +29,56 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px 0;
 }
 
+/* logo / brand */
 .brand {
     color: white;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
     text-decoration: none;
     font-family: 'Times New Roman', serif;
+    letter-spacing: 1px;
 }
 
+/* link-uri din dreapta */
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     align-items: center;
 }
 
+/* stil general pentru butoane */
 .nav-links a {
     color: white;
     text-decoration: none;
     font-weight: 600;
+    font-size: 18px;
+    padding: 12px 20px;
+    border-radius: 8px;
     transition: 0.3s;
 }
 
-.nav-links a:hover {
-    opacity: 0.7;
-}
-
+/* buton special (Profile / Sign Up) */
 .signup-btn {
-    border: 1px solid white;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: 0.3s;
+    border: 2px solid white;
 }
 
+/* hover special pentru buton */
 .signup-btn:hover {
     background: white;
     color: #2c3e50;
 }
-
 /* =========================
-   WRAPPER (ca să NU strice navbar-ul layout-ul)
+   WRAPPER
 ========================= */
 .page-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 70px);
+    min-height: 100vh;
 }
-
 /* =========================
    LOGIN / RESET BOX
 ========================= */
@@ -168,4 +172,165 @@ input:focus {
 .register-link a:hover,
 .back-to-login a:hover {
     text-decoration: underline;
+}
+
+
+/* =========================
+   REGISTER PAGE
+========================= */
+.register-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 95%;
+    text-align: center;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+}
+
+/* folosim același stil de input dar cu alt nume */
+.input-group-custom {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-group-custom label {
+    font-size: 14px;
+    color: #333;
+}
+
+.input-group-custom input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-group-custom input:focus {
+    outline: none;
+    border-color: #4ca1af;
+}
+
+/* BUTON REGISTER */
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    background: #4ca1af;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.register-btn:hover {
+    background: #357f8a;
+}
+
+/* =========================
+   MICI ÎMBUNĂTĂȚIRI UI
+========================= */
+
+/* hover pentru toate butoanele */
+button {
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+/* spacing general */
+form {
+    margin-top: 10px;
+}
+
+/* link mic sub input (ex: forgot password) */
+.input-group small {
+    display: block;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.input-group small a {
+    font-size: 12px;
+    color: #4ca1af;
+    text-decoration: none;
+}
+
+.input-group small a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   ABOUT CONTAINER
+========================= */
+.about-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 650px;
+    max-width: 95%;
+    text-align: center;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+}
+
+/* TITLES */
+.about-container h1 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.about-container h2 {
+    margin-bottom: 15px;
+    margin-top: 20px;
+    color: #666;
+}
+
+/* TEXT */
+.about-container p {
+    color: #444;
+    line-height: 1.6;
+}
+
+/* LIST */
+.about-container ul {
+    text-align: left;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* =========================
+   MAIN BUTTON
+========================= */
+.main-btn {
+    width: 100%;
+    padding: 12px;
+    background: #4ca1af;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.main-btn:hover {
+    background: #357f8a;
+    transform: translateY(-1px);
+}
+
+/* =========================
+   PAGE WRAPPER
+========================= */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
 }
