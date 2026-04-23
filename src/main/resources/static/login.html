@@ -3,41 +3,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Login</title>
+<<<<<<< HEAD:src/main/resources/static/login.html
     <link rel="stylesheet" href="/css/style.css" />
 
+=======
+    <link rel="stylesheet" href="style.css">
+>>>>>>> 964f8fb6b7f96ed27e620269566320ca8d4e9b28:src/main/resources/templates/login.html
 </head>
+
 <body>
 
-<div class="login-container">
+<!-- NAVBAR (GLOBAL) -->
+<nav class="navbar">
+    <div class="navbar-container">
 
-    <h1>Library System</h1>
-    <h2>Login</h2>
+        <a class="brand" href="login.html">Library System</a>
 
-    <form>
-
-        <div class="input-group">
-            <label>Username</label>
-            <input type="text" placeholder="Enter username" required>
+        <div class="nav-links">
+            <a href="BooksCatalogInterface.html">Catalog</a>
+            <a href="#">About Us</a>
+            <a href="register.html" class="signup-btn">Sign Up</a>
         </div>
 
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" placeholder="Enter password" required>
-        </div>
+    </div>
+</nav>
 
-        <button type="submit" class="login-btn">Login</button>
+<!-- LOGIN -->
+<div class="page-wrapper">
 
-        <p class="footer-text">
-            <a href="change-password.html">Forgot / Change Password?</a>
-        </p>
+    <div class="login-container">
 
-        <!-- REGISTER -->
-        <p class="footer-text">
-            Don't have an account?
-            <a href="register.html">Register</a>
-        </p>
+        <h1>Library System</h1>
+        <h2>Login</h2>
 
-    </form>
+        <form>
+
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" placeholder="Enter username" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="Enter password" required>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+
+            <p class="footer-text">
+                <a href="forgot-password.html">Forgot Password?</a>
+            </p>
+
+            <p class="footer-text">
+                Don't have an account?
+                <a href="register.html">Register</a>
+            </p>
+
+        </form>
+
+    </div>
 
 </div>
 

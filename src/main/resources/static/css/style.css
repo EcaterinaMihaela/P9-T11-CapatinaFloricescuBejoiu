@@ -1,15 +1,85 @@
+/* =========================
+   GLOBAL
+========================= */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(120deg, #2c3e50, #4ca1af);
-    height: 100vh;
+    min-height: 100vh;
+}
+
+/* =========================
+   NAVBAR (GLOBAL - REUTILIZABIL)
+========================= */
+.navbar {
+    width: 100%;
+    background: linear-gradient(120deg, #2c3e50, #4ca1af);
+    padding: 15px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.navbar-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
-.login-container {
+.brand {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: 'Times New Roman', serif;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 0.7;
+}
+
+.signup-btn {
+    border: 1px solid white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.signup-btn:hover {
+    background: white;
+    color: #2c3e50;
+}
+
+/* =========================
+   WRAPPER (ca să NU strice navbar-ul layout-ul)
+========================= */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+}
+
+/* =========================
+   LOGIN / RESET BOX
+========================= */
+.login-container,
+.reset-container {
     background: white;
     padding: 40px;
     border-radius: 10px;
@@ -18,6 +88,7 @@ body {
     box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
 }
 
+/* TITLES */
 h1 {
     margin-bottom: 5px;
     color: #333;
@@ -28,6 +99,9 @@ h2 {
     color: #666;
 }
 
+/* =========================
+   FORMS
+========================= */
 .input-group {
     text-align: left;
     margin-bottom: 15px;
@@ -44,7 +118,6 @@ input {
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
 }
 
 input:focus {
@@ -52,7 +125,11 @@ input:focus {
     border-color: #4ca1af;
 }
 
-button {
+/* =========================
+   BUTTONS
+========================= */
+.login-btn,
+.reset-btn {
     width: 100%;
     padding: 12px;
     background: #4ca1af;
@@ -64,32 +141,31 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
+.login-btn:hover,
+.reset-btn:hover {
     background: #357f8a;
 }
 
-.register {
+/* =========================
+   LINKS
+========================= */
+.footer-text,
+.register-link,
+.back-to-login {
     margin-top: 15px;
     font-size: 14px;
 }
 
-.register a {
-    text-decoration: none;
-    color: #4ca1af;
-    font-weight: bold;
-}
-.footer-text {
-    margin-top: 15px;
-    font-size: 14px;
-    text-align: center;
-}
-
-.footer-text a {
+.footer-text a,
+.register-link a,
+.back-to-login a {
     color: #4ca1af;
     text-decoration: none;
     font-weight: bold;
 }
 
-.footer-text a:hover {
+.footer-text a:hover,
+.register-link a:hover,
+.back-to-login a:hover {
     text-decoration: underline;
 }
