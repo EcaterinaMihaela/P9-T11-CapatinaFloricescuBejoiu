@@ -1,4 +1,5 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -22,5 +23,6 @@ public class UserProfile {
 
     @OneToOne
     @JoinColumn(name = "userid")
+    @JsonBackReference
     private User user;
 }

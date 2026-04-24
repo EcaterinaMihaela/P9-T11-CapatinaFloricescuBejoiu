@@ -23,7 +23,9 @@ public class SecurityConfig {
                                 "/forgot-password.html",
                                 "/js/**",
                                 "/css/**",
-                                "/auth/**"
+                                "/auth/**",
+                                "/users",
+                                "/profiles"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
