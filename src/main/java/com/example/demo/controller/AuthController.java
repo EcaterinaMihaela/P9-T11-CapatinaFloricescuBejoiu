@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.LoginRequestDTO;
 import com.example.demo.dto.LoginResponseDTO;
+import com.example.demo.dto.RegisterRequestDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.model.User;
 import com.example.demo.service.AuthService;
@@ -28,8 +29,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody UserDTO dto) {
-        User user = userService.create(dto);
+    public ResponseEntity<User> register(@RequestBody RegisterRequestDTO dto) {
+        User user = authService.register(dto);
         return ResponseEntity.ok(user);
     }
 }
