@@ -30,7 +30,7 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/auth/**",
                                 "/users",
-                                "/profiles"
+                                "/profiles/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
