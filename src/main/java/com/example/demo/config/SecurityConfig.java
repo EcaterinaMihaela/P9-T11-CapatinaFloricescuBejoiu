@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -31,6 +32,10 @@ public class SecurityConfig {
                                 "/users",
                                 "/profiles"
                         ).permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())
