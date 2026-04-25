@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dto.UserProfileDTO;
+import com.example.demo.dto.UserProfileResponseDTO;
 import com.example.demo.model.User;
 import com.example.demo.model.UserProfile;
 import com.example.demo.repository.impl.RepositoryWrapper;
@@ -67,5 +68,41 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public void delete(Long id) {
         repo.userProfile.deleteById(id);
+    }
+
+    @Override
+    public UserProfileResponseDTO getByUserId(Long userId) {
+
+        UserProfile profile = repo.userProfile.findByUser_Userid(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+
+        User user = profile.getUser();
+
+        UserProfileResponseDTO dto = new UserProfileResponseDTO();
+
+        dto.setUsername(user.getUsername());
+        dto.setRole(user.getRole());
+
+        dto.setFirstName(profile.getFirstName());
+        dto.setLastName(profile.getLastName());
+        dto.setEmail(profile.getEmail());
+        dto.setPhoneNumber(profile.getPhoneNumber());
+        dto.setAddress(profile.getAddress());
+
+        return dto;
+    }
+
+    @Override
+    public UserProfile updateByUserId(Long userId, UserProfileDTO dto) {
+
+        UserProfile profile = repo.userProfile.findByUser_Userid(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+
+        profile.setFirstName(dto.getFirstName());
+        profile.setLastName(dto.getLastName());
+        profile.setPhoneNumber(dto.getPhoneNumber());
+        profile.setAddress(dto.getAddress());
+
+        return repo.userProfile.save(profile);
     }
 }

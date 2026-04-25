@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.UserProfileDTO;
+import com.example.demo.dto.UserProfileResponseDTO;
 import com.example.demo.model.UserProfile;
 import com.example.demo.service.UserProfileService;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,16 @@ public class UserProfileController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    @GetMapping("/user/{userId}")
+    public UserProfileResponseDTO getByUserId(@PathVariable Long userId) {
+        return service.getByUserId(userId);
+    }
+
+    @PutMapping("/user/{userId}")
+    public UserProfile updateByUserId(@PathVariable Long userId,
+                                      @RequestBody UserProfileDTO dto) {
+        return service.updateByUserId(userId, dto);
     }
 }
