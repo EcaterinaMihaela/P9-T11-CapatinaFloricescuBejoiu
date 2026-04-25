@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.http.HttpMethod;
 
 @Configuration
 public class SecurityConfig {
@@ -15,7 +14,6 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/profile").denyAll()
                         .requestMatchers(
                                 "/login.html",
                                 "/register.html",
@@ -25,16 +23,14 @@ public class SecurityConfig {
                                 "/forgot-password.html",
                                 "/admin-ControlPanel.html",
                                 "/profile.html",
+                                "/reset-password.html",
+                                "/verify-code.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
-                                "/profiles/**"
+                                "/users",
+                                "/profiles"
                         ).permitAll()
-
-                        .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())

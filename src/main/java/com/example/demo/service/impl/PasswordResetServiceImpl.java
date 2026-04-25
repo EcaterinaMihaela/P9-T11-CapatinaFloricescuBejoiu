@@ -56,4 +56,49 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
         return true;
     }
+    @Override
+    public boolean verifyCode(String email, String code) {
+
+        return repo.passwordResetToken.findAll()
+                .stream()
+                .anyMatch(t ->
+                        t.getEmail().equals(email) &&
+                                t.getToken().equals(code) &&
+                                t.getExpiryDate().isAfter(LocalDateTime.now())
+                );
+    }
+    @Override
+    public boolean resetPasswordByEmail(String email, String newPassword) {
+
+        var profileOpt = repo.userProfile.findAll()
+                .stream()
+                .filter(p -> p.getEmail().equals(email))
+                .findFirst();
+
+        if (profileOpt.isEmpty()) {
+            System.out.println("Profile not found for email: " + email);
+            return false;
+        }
+
+        var user = profileOpt.get().getUser();
+
+        if (user == null) {
+            System.out.println("User is null for email: " + email);
+            return false;
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        repo.user.save(user);
+
+
+        repo.passwordResetToken.deleteAll(
+                repo.passwordResetToken.findAll()
+                        .stream()
+                        .filter(t -> t.getEmail().equals(email))
+                        .toList()
+        );
+
+        return true;
+    }
 }

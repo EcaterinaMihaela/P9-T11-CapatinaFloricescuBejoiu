@@ -56,13 +56,13 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Username already exists");
         }
 
-        // 🔐 create user
+
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(encoder.encode(dto.getPassword()));
         user.setRole("MEMBER");
 
-        // 👤 create profile
+
         UserProfile profile = new UserProfile();
         profile.setFirstName(dto.getFirstName());
         profile.setLastName(dto.getLastName());
@@ -106,4 +106,5 @@ public class AuthServiceImpl implements AuthService {
 
         emailService.sendResetCodeEmail(email, code);
     }
+
 }

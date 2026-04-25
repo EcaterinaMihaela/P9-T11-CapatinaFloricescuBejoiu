@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Code</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/verify-code.css">
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+
+<!-- CENTER AREA -->
+<div class="page-wrapper">
+
+    <div class="reset-container">
+
+        <h2>Verify Code</h2>
+
+        <input type="email" id="email" placeholder="Email" readonly>
+        <input type="text" id="code" placeholder="Enter code">
+
+        <button class="verify-btn" onclick="verifyCode()">Verify</button>
+
+        <p id="message"></p>
+
+    </div>
+
+</div>
+
+<script src="/js/verify-code.js"></script>
+<script src="/js/navbar.js"></script>
+
+</body>
+</html>

@@ -27,9 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 alert("Reset code sent to your email!");
-                emailInput.value = ""; // curăță inputul
+
+                window.location.href = "/verify-code.html?email=" + encodeURIComponent(email);
+
             } else {
-                alert(text); // ex: Email not found
+                alert(text);
             }
 
         } catch (error) {
