@@ -3,6 +3,8 @@ document.getElementById("registerForm").addEventListener("submit", async functio
 
     const fullName = document.getElementById("fullName").value;
     const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
@@ -25,7 +27,9 @@ document.getElementById("registerForm").addEventListener("submit", async functio
                 password: password,
                 firstName: names[0],
                 lastName: names.slice(1).join(" "),
-                email: email
+                email: email,
+                phoneNumber: phone,
+                address: address
             })
         });
 

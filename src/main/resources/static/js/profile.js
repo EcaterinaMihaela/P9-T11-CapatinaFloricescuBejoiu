@@ -1,65 +1,74 @@
-const isLibrarianPage = document.title.toLowerCase().includes("librarian");
-const apiEndpoint = isLibrarianPage ? "/api/librarian-profile" : "/api/member-profile";
+document.addEventListener("DOMContentLoaded", async () => {
 
-async function loadData() {
-    try {
-        const response = await fetch(`${apiEndpoint}/${userId}`);
-        if (!response.ok) throw new Error("User not found");
+    const userId = localStorage.getItem("userId");
 
-        const user = await response.json();
+    if (!userId) {
+        window.location.href = "/login.html";
+        return;
+    }
 
-        const fields = {
-            'profileName': user.name,
-            'profileEmail': user.email,
-            'profilePhone': user.phone,
-            'profileAddress': user.address
+    const res = await fetch(`/profiles/user/${userId}`);
+    const profile = await res.json();
+
+    document.getElementById("username").textContent = profile.username;
+    document.getElementById("role").textContent = profile.role;
+
+    document.getElementById("firstName").value = profile.firstName || "";
+    document.getElementById("lastName").value = profile.lastName || "";
+    document.getElementById("email").value = profile.email || "";
+    document.getElementById("phone").value = profile.phoneNumber || "";
+    document.getElementById("address").value = profile.address || "";
+
+    // doar astea sunt editabile
+    const editableFields = ["firstName", "lastName", "phone", "address"];
+
+    let editMode = false;
+
+    const editBtn = document.getElementById("editBtn");
+    const saveBtn = document.getElementById("saveBtn");
+
+    // initial: save ascuns
+    saveBtn.style.display = "none";
+
+    function setEditMode(state) {
+        editMode = state;
+
+        editableFields.forEach(id => {
+            document.getElementById(id).readOnly = !state;
+        });
+
+        saveBtn.style.display = state ? "inline-block" : "none";
+        editBtn.textContent = state ? "Cancel" : "Edit Profile";
+    }
+
+    // EDIT BUTTON
+    editBtn.addEventListener("click", () => {
+        setEditMode(!editMode);
+    });
+
+    // SAVE BUTTON
+    saveBtn.addEventListener("click", async () => {
+
+        const dto = {
+            firstName: document.getElementById("firstName").value,
+            lastName: document.getElementById("lastName").value,
+            phoneNumber: document.getElementById("phone").value,
+            address: document.getElementById("address").value
         };
 
-        for (const [id, value] of Object.entries(fields)) {
-            const el = document.getElementById(id);
-            if (el) el.value = value || "";
-        }
-
-        const statusEl = document.getElementById('profileStatus');
-        if (statusEl) statusEl.innerText = user.membershipStatus || "Active";
-
-        const welcomeText = document.querySelector('.welcome-msg') || document.querySelector('.welcome-text');
-        if (welcomeText) welcomeText.innerText = `Welcome, ${user.name || 'User'}`;
-
-    } catch (error) {
-        console.error("Error loading profile:", error);
-    }
-}
-
-async function saveProfile() {
-    const updatedData = {
-        name: document.getElementById('profileName')?.value,
-        email: document.getElementById('profileEmail')?.value,
-        phone: document.getElementById('profilePhone')?.value
-    };
-
-    const addressField = document.getElementById('profileAddress');
-    if (addressField) {
-        updatedData.address = addressField.value;
-    }
-
-    try {
-        const response = await fetch(`${apiEndpoint}/${userId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedData)
+        const response = await fetch(`/profiles/user/${userId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dto)
         });
 
         if (response.ok) {
-            alert("Profile saved successfully!");
-            loadData();
+            alert("Profile updated successfully!");
         } else {
-            alert("Failed to save profile.");
+            const errText = await response.text();
+            console.log("UPDATE ERROR:", errText);
+            alert("Update failed: " + errText);
         }
-    } catch (error) {
-        console.error("Error saving:", error);
-        alert("A connection error occurred.");
-    }
-}
+    });
 
-document.addEventListener('DOMContentLoaded', loadData);
+});
