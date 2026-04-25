@@ -21,8 +21,6 @@ public class SecurityConfig {
                                 "/navbar.html",
                                 "/about-us.html",
                                 "/forgot-password.html",
-                                "/member-profile.html",
-                                "/librarian-profile.html",
                                 "/book.html",
                                 "/js/**",
                                 "/css/**",
