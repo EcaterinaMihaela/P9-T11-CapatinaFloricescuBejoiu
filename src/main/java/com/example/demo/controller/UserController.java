@@ -18,25 +18,38 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAll() {
+    public List<UserDTO> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable Long id) {
+    public UserDTO getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @PostMapping
-    public User create(@RequestBody UserDTO dto) {
+    public UserDTO create(@RequestBody UserDTO dto) {
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public User update(@PathVariable Long id, @RequestBody UserDTO dto) {
+    public UserDTO update(@PathVariable Long id, @RequestBody UserDTO dto) {
         return service.update(id, dto);
     }
+    @PutMapping("/{id}/ban")
+    public void ban(@PathVariable Long id, @RequestParam String reason) {
+        service.banUser(id, reason);
+    }
 
+    @PutMapping("/{id}/unban")
+    public void unban(@PathVariable Long id) {
+        service.unbanUser(id);
+    }
+
+    @PatchMapping("/{id}/role")
+    public UserDTO changeRole(@PathVariable Long id, @RequestBody UserDTO dto) {
+        return service.changeRole(id, dto.getRole());
+    }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);

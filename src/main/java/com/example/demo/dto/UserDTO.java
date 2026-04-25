@@ -8,4 +8,10 @@ public class UserDTO {
     private String username;
     private String password;
     private String role;
+
+    private String status;
+    private String banReason;
+    private String email;
+    private String phoneNumber;
+    private String address;
 }

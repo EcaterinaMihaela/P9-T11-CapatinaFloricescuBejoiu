@@ -25,4 +25,8 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
     private UserProfile profile;
+
+    private String status; // ACTIVE, BANNED, INACTIVE
+
+    private String banReason;
 }

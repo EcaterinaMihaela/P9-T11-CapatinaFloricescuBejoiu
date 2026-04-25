@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> getAll();
-
-    User getById(Long id);
-
-    User create(UserDTO dto);
-
-    User update(Long id, UserDTO dto);
-
+    List<UserDTO> getAll();
+    UserDTO getById(Long id);
+    UserDTO create(UserDTO dto);
+    UserDTO update(Long id, UserDTO dto);
     void delete(Long id);
+
+    void banUser(Long id, String reason);
+    void unbanUser(Long id);
+    UserDTO changeRole(Long id, String role);
 }
