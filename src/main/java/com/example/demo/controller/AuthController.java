@@ -6,6 +6,7 @@ import com.example.demo.dto.RegisterRequestDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.model.User;
 import com.example.demo.service.AuthService;
+import com.example.demo.service.PasswordResetService;
 import com.example.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,12 @@ public class AuthController {
 
     private final AuthService authService;
     private final UserService userService;
+    private final PasswordResetService passwordResetService;
 
-    public AuthController(AuthService authService, UserService userService) {
+    public AuthController(AuthService authService, UserService userService, PasswordResetService passwordResetService) {
         this.authService = authService;
         this.userService = userService;
+        this.passwordResetService = passwordResetService;
     }
 
     @PostMapping("/login")
@@ -35,21 +38,6 @@ public class AuthController {
         User user = authService.register(dto);
         return ResponseEntity.ok(user);
     }
-    @PostMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> body) {
-
-        String token = body.get("token");
-        String password = body.get("password");
-
-        boolean result = authService.resetPassword(token, password);
-
-        if (!result) {
-            return ResponseEntity.badRequest()
-                    .body("Invalid or expired token");
-        }
-
-        return ResponseEntity.ok("Password reset successfully");
-    }
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> body) {
 
@@ -58,5 +46,34 @@ public class AuthController {
         authService.createPasswordResetToken(email);
 
         return ResponseEntity.ok("Reset link sent");
+    }
+
+    @PostMapping("/verify-code")
+    public ResponseEntity<String> verifyCode(@RequestBody Map<String, String> body) {
+
+        String email = body.get("email");
+        String code = body.get("code");
+
+        boolean valid = passwordResetService.verifyCode(email, code);
+
+        if (!valid) {
+            return ResponseEntity.badRequest().body("Invalid or expired code");
+        }
+
+        return ResponseEntity.ok("Code valid");
+    }
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> body) {
+
+        String email = body.get("email");
+        String password = body.get("password");
+
+        boolean result = passwordResetService.resetPasswordByEmail(email, password);
+
+        if (!result) {
+            return ResponseEntity.badRequest().body("Reset failed");
+        }
+
+        return ResponseEntity.ok("Password changed successfully");
     }
 }

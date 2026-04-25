@@ -21,6 +21,8 @@ public class SecurityConfig {
                                 "/navbar.html",
                                 "/about-us.html",
                                 "/forgot-password.html",
+                                "/reset-password.html",
+                                "/verify-code.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",

@@ -1,0 +1,61 @@
+.reset-container {
+    width: 350px;
+    margin: 100px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* titlu */
+.reset-container h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+/* inputuri */
+.reset-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.reset-container input:focus {
+    border-color: #4a90e2;
+}
+
+/* BUTON DOAR PENTRU VERIFY */
+.verify-btn {
+    width: 100%;
+    padding: 12px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.verify-btn:hover {
+    background: #357ab8;
+    transform: translateY(-1px);
+}
+
+.verify-btn:active {
+    transform: translateY(0px);
+}
+
+/* mesaj feedback */
+#message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
