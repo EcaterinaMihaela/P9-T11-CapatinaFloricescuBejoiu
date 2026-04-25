@@ -18,6 +18,7 @@ public class RepositoryWrapper {
     public final MemberRepository member;
     public final NotificationRepository notification;
     public final ReportRepository report;
+    public final PasswordResetTokenRepository passwordResetToken;
     public final ReservationRepository reservation;
     public final ReviewRepository review;
     public final SecurityLogRepository securityLog;
@@ -34,6 +35,7 @@ public class RepositoryWrapper {
             MemberRepository member,
             NotificationRepository notification,
             ReportRepository report,
+            PasswordResetTokenRepository passwordResetToken,
             ReservationRepository reservation,
             ReviewRepository review,
             SecurityLogRepository securityLog
@@ -49,6 +51,7 @@ public class RepositoryWrapper {
         this.member = member;
         this.notification = notification;
         this.report = report;
+        this.passwordResetToken = passwordResetToken;
         this.reservation = reservation;
         this.review=review;
         this.securityLog=securityLog;
