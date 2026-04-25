@@ -10,6 +10,8 @@ import com.example.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -32,5 +34,29 @@ public class AuthController {
     public ResponseEntity<User> register(@RequestBody RegisterRequestDTO dto) {
         User user = authService.register(dto);
         return ResponseEntity.ok(user);
+    }
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> body) {
+
+        String token = body.get("token");
+        String password = body.get("password");
+
+        boolean result = authService.resetPassword(token, password);
+
+        if (!result) {
+            return ResponseEntity.badRequest()
+                    .body("Invalid or expired token");
+        }
+
+        return ResponseEntity.ok("Password reset successfully");
+    }
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> body) {
+
+        String email = body.get("email");
+
+        authService.createPasswordResetToken(email);
+
+        return ResponseEntity.ok("Reset link sent");
     }
 }
