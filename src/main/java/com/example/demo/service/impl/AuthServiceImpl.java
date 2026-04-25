@@ -60,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(encoder.encode(dto.getPassword()));
-        user.setRole("USER");
+        user.setRole("MEMBER");
 
         // 👤 create profile
         UserProfile profile = new UserProfile();
