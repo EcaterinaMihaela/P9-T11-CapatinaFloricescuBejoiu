@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - Library System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="main-container">
+
+
+    <!-- NAVBAR -->
+    <div id="navbar"></div>
+
+    <div class="book-card">
+        <div class="book-cover">
+            <img id="bookCover" src="" alt="Loading cover...">
+        </div>
+        <div class="book-info">
+            <h1 id="bookTitle">Loading...</h1>
+            <div class="meta-data">
+                <p><strong>Author:</strong> <span id="bookAuthor"></span></p>
+                <p><strong>Category:</strong> <span id="bookCategory"></span></p>
+                <p><strong>Publisher:</strong> <span id="bookPublisher"></span></p>
+                <p><strong>Status:</strong> <span id="bookStatus"></span></p>
+            </div>
+            <div id="bookRating" class="rating-stars"></div>
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="handleBorrow()">Borrow Book</button>
+                <button class="btn-secondary" onclick="handleReserve()">Reserve</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-grid">
+        <section class="info-box description">
+            <h3>Description</h3>
+            <p id="bookDescription"></p>
+        </section>
+
+        <section class="info-box reviews">
+            <h3>Reviews</h3>
+            <div id="reviewsContainer">
+            </div>
+            <hr>
+            <div class="add-review">
+                <h4>Add a Review</h4>
+                <textarea id="userReview" placeholder="What did you think of this book?"></textarea>
+                <div class="review-controls">
+                    <select id="userRating">
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="2">2 Stars</option>
+                        <option value="1">1 Star</option>
+                    </select>
+                    <button class="btn-submit" onclick="submitReview()">Post Review</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="/js/navbar.js"></script>
+<script src="/js/book-details.js"></script>
+
+</body>
+</html>

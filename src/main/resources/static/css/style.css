@@ -413,3 +413,156 @@ form {
     padding-top: 40px;
     padding-bottom: 40px;
 }
+
+/* =========================
+   BOOK DETAILS SPECIFIC
+========================= */
+
+.main-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.book-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.book-cover img {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.book-info h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #2c3e50;
+}
+
+.meta-data p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.status-available {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-borrowed {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.rating-stars {
+    font-size: 22px;
+    color: #f1c40f;
+    margin: 10px 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.info-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    min-height: 300px;
+}
+
+.info-box h3 {
+    border-bottom: 2px solid #f4f4f4;
+    padding-bottom: 10px;
+    margin-top: 0;
+    color: #333;
+}
+
+.review-item {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-item strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.add-review {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px dashed #eee;
+}
+
+.add-review textarea {
+    width: 100%;
+    height: 80px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    resize: none;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.review-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-controls select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn-submit {
+    background: #4ca1af;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background: #357f8a;
+}

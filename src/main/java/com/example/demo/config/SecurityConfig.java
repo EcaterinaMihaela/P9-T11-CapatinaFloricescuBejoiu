@@ -23,6 +23,7 @@ public class SecurityConfig {
                                 "/forgot-password.html",
                                 "/member-profile.html",
                                 "/librarian-profile.html",
+                                "/book.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
