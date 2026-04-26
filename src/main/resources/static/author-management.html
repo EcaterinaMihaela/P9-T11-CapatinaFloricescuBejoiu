@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Management | Librarian</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="dashboard.html" class="brand">My Library</a>
+        <div class="nav-links">
+            <a href="book-management.html">Manage Books</a>
+            <a href="author-management.html" class="active">Manage Authors</a>
+        </div>
+    </div>
+</nav>
+
+<div class="management-container">
+    <h1>Author Administration</h1>
+
+    <div class="info-box">
+        <h3 id="form-title">Add New Author</h3>
+        <form id="authorForm">
+            <input type="hidden" id="authorId">
+
+            <div class="form-row" style="grid-template-columns: 1fr;">
+                <label for="authorName">Author Full Name</label>
+                <input type="text" id="authorName" placeholder="Enter author's full name" required>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <button type="submit" class="btn-submit">Save Author</button>
+                <button type="button" class="btn-cancel" onclick="resetAuthorForm()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Author Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="authorTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="js/author-management.js"></script>
+</body>
+</html>

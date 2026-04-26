@@ -25,7 +25,8 @@ public class Book {
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "authorID")
+    @JoinColumn(name = "author_id", nullable = true)
+    @org.hibernate.annotations.OnDelete(action = org.hibernate.annotations.OnDeleteAction.CASCADE)
     private Author author;
 
     @ManyToOne
