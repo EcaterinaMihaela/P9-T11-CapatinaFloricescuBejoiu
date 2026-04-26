@@ -27,13 +27,16 @@ public class SecurityConfig {
                                 "/reset-password.html",
                                 "/verify-code.html",
                                 "/author-management.html",
+                                "/publisher-management.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
                                 "/users",
                                 "/profiles/**",
                                 "/authors",
-                                "/authors/**"
+                                "/authors/**",
+                                "/publishers",
+                                "/publishers/**"
 
                         ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()

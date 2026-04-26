@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publisher Management</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="dashboard.html" class="brand">My Library</a>
+        <div class="nav-links">
+            <a href="book-management.html">Manage Books</a>
+            <a href="author-management.html" class="active">Manage Authors</a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="management-container">
+
+    <div class="management-form-box">
+        <h2 id="form-title">Add New Publisher</h2>
+
+        <form id="publisherForm">
+            <input type="hidden" id="publisherId">
+
+            <div class="form-group">
+                <label for="publisherName">Publisher Name:</label>
+                <input type="text" id="publisherName" required placeholder="e.g., Penguin Books">
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-save">Save Publisher</button>
+                <button type="button" class="btn-cancel" onclick="resetPublisherForm()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <hr>
+
+    <h3>Publisher List</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Publisher Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="publisherTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="js/publisher-management.js"></script>
+</body>
+</html>

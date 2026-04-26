@@ -31,5 +31,6 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "publisherID")
+    @org.hibernate.annotations.OnDelete(action = org.hibernate.annotations.OnDeleteAction.CASCADE)
     private Publisher publisher;
 }
