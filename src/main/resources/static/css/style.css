@@ -32,6 +32,33 @@ body {
     padding: 20px 0;
 }
 
+/* Fundalul gradient ca în Admin */
+.custom-navbar {
+    background: linear-gradient(120deg, #2c3e50, #4ca1af) !important;
+    padding: 10px 0;
+}
+
+.brand-title {
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 1px;
+}
+
+/* Stil pentru info utilizator să nu fie împrăștiat */
+#userInfo {
+    line-height: 1.2;
+    border-left: 1px solid rgba(255,255,255,0.3);
+    padding-left: 15px;
+}
+
+.nav-link {
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #4ca1af !important;
+    transform: translateY(-2px);
+}
 /* logo / brand */
 .brand {
     color: white;

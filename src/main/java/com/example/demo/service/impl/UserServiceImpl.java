@@ -4,7 +4,9 @@ import com.example.demo.dto.UserDTO;
 import com.example.demo.model.User;
 import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -61,10 +63,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO create(UserDTO dto) {
+
+        if(repo.user.findByUsername(dto.getUsername()).isPresent()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Username already exists"
+            );
+        }
+
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(dto.getPassword());
-        user.setRole("ADMIN");
+        user.setRole("MEMBER");
 
         user.setStatus("ACTIVE");
         user = repo.user.save(user);

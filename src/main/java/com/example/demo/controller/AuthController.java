@@ -10,11 +10,13 @@ import com.example.demo.service.PasswordResetService;
 import com.example.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     private final AuthService authService;
@@ -34,9 +36,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequestDTO dto) {
-        User user = authService.register(dto);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<String> register(@RequestBody RegisterRequestDTO dto) {
+        try {
+            authService.register(dto);
+            return ResponseEntity.ok("User registered successfully");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
     }
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> body) {

@@ -9,9 +9,11 @@ import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.AuthService;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.PasswordResetService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.UserProfile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -38,14 +40,15 @@ public class AuthServiceImpl implements AuthService {
                 .orElse(null);
 
         if (user == null) {
-            return new LoginResponseDTO(null, null, "FAIL", "OK");
+            return new LoginResponseDTO(null, null, "FAIL", "INVALID_USERNAME",null);
         }
 
         if (!encoder.matches(request.getPassword(), user.getPassword())) {
-            return new LoginResponseDTO(null, null, "FAIL", "OK");
+            return new LoginResponseDTO(null, null, "FAIL", "INVALID_PASSWORD",null);
         }
 
-        return new LoginResponseDTO(user.getUserid(), user.getUsername(), user.getRole(), "OK");
+        String email = (user.getProfile() != null) ? user.getProfile().getEmail() : "No Email";
+        return new LoginResponseDTO(user.getUserid(), user.getUsername(), user.getRole(), "OK",email);
     }
 
     @Override
@@ -53,7 +56,10 @@ public class AuthServiceImpl implements AuthService {
 
         // verificare username unic
         if (repo.user.findByUsername(dto.getUsername()).isPresent()) {
-            throw new RuntimeException("Username already exists");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Username already exists"
+            );
         }
 
 

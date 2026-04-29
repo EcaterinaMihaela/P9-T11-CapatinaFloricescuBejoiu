@@ -17,7 +17,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     const names = fullName.split(" ");
 
     try {
-        const response = await fetch("/auth/register", {
+        const response = await fetch("http://localhost:8080/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,8 +34,10 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         });
 
         if (!response.ok) {
-            throw new Error("Register failed");
-        }
+                    const errorText = await response.text();
+                    alert(errorText);
+                    return;
+                }
 
         alert("Account created!");
 
@@ -43,7 +45,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         window.location.href = "/login.html";
 
     } catch (err) {
-        console.error(err);
-        alert("Error creating account");
-    }
+          console.error(err);
+          alert(err.message);
+      }
 });

@@ -1,13 +1,42 @@
-<nav class="navbar">
-    <div class="navbar-container">
+<nav class="navbar navbar-expand-lg navbar-dark shadow sticky-top custom-navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3 brand-title" href="javascript:void(0)">
+            Library System
+        </a>
 
-        <a class="brand" href="/login">Library System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <div class="nav-links">
-            <a href="./dashboard.html">Catalog</a>
-            <a href="./about-us.html">About Us</a>
-            <a href="./profile.html">Profile</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto gap-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="./dashboard.html">Catalog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./about-us.html">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./profile.html">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./my-loans.html" id="memberLink" style="display: none;">My Loans</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-info fw-bold" href="./librarianPanel.html" id="librarianLink" style="display: none;">Librarian Panel</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-warning fw-bold" href="./admin-ControlPanel.html" id="adminLink" style="display: none;">Admin Panel</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+                <div id="userInfo" class="text-white small d-flex flex-column" style="display: none !important;">
+                </div>
+                <a href="#" id="logoutBtn" class="btn btn-outline-light btn-sm fw-bold" style="display: none;">Logout</a>
+            </div>
         </div>
-
     </div>
 </nav>
