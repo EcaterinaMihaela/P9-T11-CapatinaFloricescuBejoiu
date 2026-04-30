@@ -17,30 +17,28 @@
 <body>
 
 <div id="navbar"></div>
-
 <div class="admin-container">
-    <h1>Books Catalog</h1>
+    <h1 class="text-center mb-4">Books Catalog</h1>
 
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search for books, authors or categories...">
+        <input type="text" id="searchInput" placeholder="Search books...">
     </div>
 
-    <div class="filters">
-        <select>
-            <option>All Authors</option>
+    <div class="filters-container">
+        <select id="authorFilter">
+            <option value="all">All Authors</option>
         </select>
 
-        <select>
-            <option>All Categories</option>
+        <select id="categoryFilter">
+            <option value="all">All Categories</option>
         </select>
 
-        <select>
-            <option>All Years</option>
+        <select id="publisherFilter">
+            <option value="all">All Publishers</option>
         </select>
     </div>
 
     <div id="bookGrid" class="book-grid">
-        <div class="text-center">Loading books...</div>
     </div>
 </div>
 

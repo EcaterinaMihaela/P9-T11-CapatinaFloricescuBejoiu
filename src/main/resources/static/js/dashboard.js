@@ -1,52 +1,88 @@
 document.addEventListener("DOMContentLoaded", () => {
+    loadFilterData();
     loadBooks();
 
-    const searchInput = document.getElementById("searchInput");
+    document.getElementById("authorFilter").addEventListener("change", filterBooks);
+    document.getElementById("categoryFilter").addEventListener("change", filterBooks);
+    document.getElementById("publisherFilter").addEventListener("change", filterBooks);
 
+    const searchInput = document.getElementById("searchInput");
     if (searchInput) {
         searchInput.addEventListener("input", filterBooks);
-    }
-
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            localStorage.clear();
-            window.location.href = "/login.html";
-        });
     }
 });
 
 let allBooks = [];
 
-async function loadBooks() {
-    const bookGrid = document.getElementById("bookGrid");
-
+async function loadFilterData() {
     try {
-        const response = await fetch("/books");
+        const [authors, categories, publishers] = await Promise.all([
+            fetch('/authors').then(res => res.json()),
+            fetch('/categories').then(res => res.json()),
+            fetch('/publishers').then(res => res.json())
+        ]);
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch books");
-        }
+        const populate = (id, data, idKey, nameKey) => {
+            const select = document.getElementById(id);
+            if (!select) return;
+            data.forEach(item => {
+                const idVal = item[idKey] || item.id;
+                const nameVal = item[nameKey] || item.categoryName || item.categoryTitle || item.publisherName || item.name;
+                select.innerHTML += `<option value="${idVal}">${nameVal}</option>`;
+            });
+        };
 
-        allBooks = await response.json();
-
-        renderBooks(allBooks);
-
+        populate("authorFilter", authors, "authorID", "authorName");
+        populate("categoryFilter", categories, "categoryID", "categoryName");
+        populate("publisherFilter", publishers, "publisherID", "publisherName");
     } catch (err) {
-        console.error(err);
-        bookGrid.innerHTML = "<p class='text-danger'>Failed to load books.</p>";
+        console.error("Filter error:", err);
     }
 }
 
+async function loadBooks() {
+    try {
+        const response = await fetch("/books");
+        allBooks = await response.json();
+        renderBooks(allBooks);
+    } catch (err) {
+        console.error("Error in books:", err);
+    }
+}
+
+function filterBooks() {
+    const searchValue = document.getElementById("searchInput").value.toLowerCase();
+    const selectedAuthor = document.getElementById("authorFilter").value;
+    const selectedCategory = document.getElementById("categoryFilter").value;
+    const selectedPublisher = document.getElementById("publisherFilter").value;
+
+    const filtered = allBooks.filter(book => {
+        const matchesSearch =
+            book.bookTitle.toLowerCase().includes(searchValue) ||
+            (book.author?.authorName || "").toLowerCase().includes(searchValue) ||
+            (book.ISBN || book.isbn || "").toLowerCase().includes(searchValue);
+
+        const authorId = (book.author?.authorID || book.author?.id)?.toString();
+        const matchesAuthor = selectedAuthor === "all" || authorId === selectedAuthor;
+
+        const categoryId = (book.category?.categoryID || book.category?.id)?.toString();
+        const matchesCategory = selectedCategory === "all" || categoryId === selectedCategory;
+
+        const publisherId = (book.publisher?.publisherID || book.publisher?.id)?.toString();
+        const matchesPublisher = selectedPublisher === "all" || publisherId === selectedPublisher;
+
+        return matchesSearch && matchesAuthor && matchesCategory && matchesPublisher;
+    });
+
+    renderBooks(filtered);
+}
 function renderBooks(books) {
     const bookGrid = document.getElementById("bookGrid");
-
+    if (!bookGrid) return;
     bookGrid.innerHTML = "";
 
     if (books.length === 0) {
-        bookGrid.innerHTML = "<p>No books found.</p>";
+        bookGrid.innerHTML = "<p class='text-center w-100'>No books found.</p>";
         return;
     }
 
@@ -54,45 +90,24 @@ function renderBooks(books) {
         const card = document.createElement("div");
         card.className = "book-card";
 
-        const image = book.imageUrl || "https://placehold.co/200x300?text=No+Cover";
+        const image = book.imageUrl || "https://placehold.co/300x450?text=No+Cover";
+        const catName = book.category ? (book.category.categoryName || book.category.categoryTitle || "General") : "N/A";
+        const authName = book.author ? (book.author.authorName || "Unknown Author") : "N/A";
 
-        const statusClass =
-            book.status === "AVAILABLE"
-                ? "available"
-                : "borrowed";
+        const isAvailable = book.availableStock > 0;
+        const statusText = isAvailable ? "Available" : "Borrowed";
+        const statusClass = isAvailable ? "status-available" : "status-borrowed";
 
         card.innerHTML = `
             <img src="${image}" alt="${book.bookTitle}">
             <h3>${book.bookTitle}</h3>
-            <p>${book.author ? book.author.authorName : "Unknown Author"}</p>
-            <p>${book.category ? book.category.categoryTitle : "No Category"}</p>
-            <p><small>ISBN: ${book.ISBN}</small></p>
-            <p><small>Stock: ${book.availableStock}</small></p>
-            <span class="status-badge ${statusClass}">
-                ${book.status}
-            </span>
-            <button class="details-btn" onclick="viewDetails(${book.bookID})">
-                View Details
-            </button>
+            <p>${authName}</p>
+            <p>${catName}</p>
+            <p class="status-text ${statusClass}">${statusText}</p>
+            <button class="details-btn" onclick="viewDetails(${book.bookID})">View Details</button>
         `;
-
         bookGrid.appendChild(card);
     });
-}
-
-function filterBooks() {
-    const searchValue = document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase();
-
-    const filtered = allBooks.filter(book =>
-        book.bookTitle.toLowerCase().includes(searchValue) ||
-        (book.author?.authorName || "").toLowerCase().includes(searchValue) ||
-        (book.category?.categoryTitle || "").toLowerCase().includes(searchValue)
-    );
-
-    renderBooks(filtered);
 }
 
 function viewDetails(bookId) {
