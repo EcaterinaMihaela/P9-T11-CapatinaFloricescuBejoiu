@@ -6,7 +6,6 @@ async function loadBooks() {
     const bookList = document.getElementById("bookList");
 
     try {
-        // Înlocuiește cu endpoint-ul tău real din Spring Boot
         const response = await fetch("/books");
 
         if (!response.ok) {
@@ -14,7 +13,7 @@ async function loadBooks() {
         }
 
         const books = await response.json();
-        bookList.innerHTML = ""; // Ștergem mesajul "Loading..."
+        bookList.innerHTML = "";
 
         if (books.length === 0) {
             bookList.innerHTML = "<p class='text-center'>Nu există cărți în bibliotecă.</p>";
@@ -22,16 +21,15 @@ async function loadBooks() {
         }
 
         books.forEach(book => {
-            // Creăm elementul card folosind clasele din CSS-ul tău
             const card = document.createElement("div");
             card.className = "book-card";
 
-            // Dacă n-ai imagine în DB, punem un placeholder
-            const coverImage = book.coverImage ? book.coverImage : 'https://via.placeholder.com/55x80?text=Book';
+            // --- SCHIMBARE AICI: Folosim imageUrl din DB sau placeholder dacă e goală ---
+            const coverImage = book.imageUrl ? book.imageUrl : 'https://placehold.co/55x80?text=No+Cover';
 
             card.innerHTML = `
                 <div class="book-details">
-                    <img src="https://via.placeholder.com/55x80?text=Book" alt="Cover">
+                    <img src="${coverImage}" alt="Cover" style="object-fit: cover;">
                     <div class="book-info">
                         <b>${book.bookTitle}</b>
                         <span>
@@ -60,18 +58,21 @@ function editBook(id) {
 }
 
 async function deleteBook(id) {
-    if (confirm("Sigur vrei să ștergi această carte?")) {
-        try {
-            const response = await fetch(`/books/${id}`, {
-                method: 'DELETE'
-            });
+    if (!confirm("Sigur vrei să ștergi această carte?")) return;
 
-            if (response.ok) {
-                loadBooks();
-            }
+    try {
+        const response = await fetch(`/books/${id}`, {
+            method: 'DELETE'
+        });
 
-        } catch (err) {
-            alert("Eroare la ștergere!");
+        if (!response.ok) {
+            throw new Error("Delete failed");
         }
+
+        loadBooks();
+
+    } catch (err) {
+        console.error(err);
+        alert("Eroare la ștergere!");
     }
 }

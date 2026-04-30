@@ -22,7 +22,7 @@
     <h1>Books Catalog</h1>
 
     <div class="search-bar">
-        <input type="text" placeholder="Search for books, authors or categories...">
+        <input type="text" id="searchInput" placeholder="Search for books, authors or categories...">
     </div>
 
     <div class="filters">
@@ -39,26 +39,8 @@
         </select>
     </div>
 
-    <div class="book-grid">
-
-        <div class="book-card">
-            <img src="81T4dS6IkaL._AC_UF1000,1000_QL80_ - Copy.jpg">
-            <h3>The Great Gatsby</h3>
-            <p>F. Scott Fitzgerald</p>
-            <p>Classic Literature</p>
-            <span class="status-badge available">Available</span>
-            <a href="../interfataBook/BookInterface.html" class="details-btn">View Details</a>
-        </div>
-
-        <div class="book-card">
-            <img src="shopping.webp">
-            <h3>Harry Potter</h3>
-            <p>J.K. Rowling</p>
-            <p>Fantasy</p>
-            <span class="status-badge borrowed">Borrowed</span>
-            <a href="../interfataBook/BookInterface.html" class="details-btn">View Details</a>
-        </div>
-
+    <div id="bookGrid" class="book-grid">
+        <div class="text-center">Loading books...</div>
     </div>
 </div>
 

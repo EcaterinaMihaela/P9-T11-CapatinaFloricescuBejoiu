@@ -58,6 +58,7 @@ public class BookServiceImpl implements BookService {
         book.setISBN(dto.getIsbn());
         book.setAvailableStock(dto.getAvailableStock());
         book.setStatus(dto.getStatus());
+        book.setImageUrl(dto.getImageUrl());
 
         Author author = repo.author.findById(dto.getAuthorID())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
