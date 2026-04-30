@@ -41,7 +41,7 @@ public class SecurityConfig {
                                 "/publishers",
                                 "/publishers/**",
                                 "/categories",
-                                "/categories/**"
+                                "/categories/**",
                                 "/publishers/**",
                                 "/books/**",
                                 "/api/books/**",

@@ -818,3 +818,51 @@ table td {
     cursor: pointer;
     font-weight: bold;
 }
+/* =========================
+   ADD BOOK PAGE
+========================= */
+
+.add-book-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    width: 500px;
+    max-width: 95%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.add-book-container h1 {
+    color: #2c3e50;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.add-book-container p {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.add-book-container .form-group {
+    margin-bottom: 18px;
+}
+
+.add-book-container label {
+    font-weight: bold;
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.add-book-container input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.add-book-container input:focus {
+    border-color: #4ca1af;
+    box-shadow: 0 0 8px rgba(76,161,175,0.3);
+}
