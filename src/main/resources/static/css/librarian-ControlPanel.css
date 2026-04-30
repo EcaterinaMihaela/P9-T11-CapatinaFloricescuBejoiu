@@ -1,0 +1,67 @@
+
+.admin-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+    margin: 40px auto; /* "auto" centrează containerul orizontal */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.top-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn-main {
+    background: #4ca1af;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-main:hover { background: #357f8a; transform: translateY(-2px); }
+
+/* Cardul pentru fiecare carte */
+.book-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 15px 25px;
+    margin-bottom: 15px;
+    transition: 0.2s;
+}
+
+.book-card:hover { background: #fcfcfc; transform: scale(1.01); }
+
+.book-details { display: flex; align-items: center; gap: 20px; }
+
+.book-card img {
+    width: 55px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.book-info b { display: block; color: #2c3e50; font-size: 17px; }
+.book-info span { color: #666; font-size: 14px; }
+
+.edit-btn { background: #3498db; color: white; border: none; padding: 7px 15px; border-radius: 4px; margin-right: 5px; }
+.delete-btn { background: #e74c3c; color: white; border: none; padding: 7px 15px; border-radius: 4px; }

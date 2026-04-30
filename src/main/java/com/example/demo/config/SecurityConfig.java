@@ -29,6 +29,7 @@ public class SecurityConfig {
                                 "/verify-code.html",
                                 "/author-management.html",
                                 "/publisher-management.html",
+                                "/librarian-ControlPanel.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
@@ -37,7 +38,10 @@ public class SecurityConfig {
                                 "/authors",
                                 "/authors/**",
                                 "/publishers",
-                                "/publishers/**"
+                                "/publishers/**",
+                                "/books/**",
+                                "/api/books/**",
+                                "/add-book.html"
 
                         ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
