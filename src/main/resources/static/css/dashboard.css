@@ -1,55 +1,65 @@
+.admin-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
 
 .admin-container h1 {
     text-align: center;
     color: #2c3e50;
     font-weight: 700;
-    margin-top: 20px;
+    margin-bottom: 25px;
+    font-size: 2rem;
 }
 
 .search-bar {
-    max-width: 800px;
-    margin: 0 auto 20px auto;
+    max-width: 700px;
+    margin: 0 auto 15px auto;
 }
 
 .search-bar input {
     width: 100%;
-    padding: 12px 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.95rem;
 }
 
 .filters-container {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
+    gap: 10px;
+    margin-bottom: 30px;
 }
 
 .filters-container select {
-    padding: 8px 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: white;
-    min-width: 150px;
-    cursor: pointer;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+    background-color: #fff;
+    min-width: 130px;
+    font-size: 0.85rem;
+    color: #444;
 }
 
 .book-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 5px;
 }
 
 .book-card {
     background: #ffffff;
-    border-radius: 12px;
-    padding: 25px;
+    border-radius: 10px;
+    padding: 15px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -57,50 +67,158 @@
 
 .book-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .book-card img {
     width: 100%;
-    height: 320px;
+    height: 220px;
     object-fit: contain;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
+    border-radius: 4px;
 }
 
 .book-card h3 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    min-height: 2.4em;
+    line-height: 1.2;
 }
 
 .book-card p {
-    margin: 2px 0;
-    color: #777;
-    font-size: 0.95rem;
+    margin: 1px 0;
+    color: #666;
+    font-size: 0.85rem;
 }
 
 .status-text {
-    font-weight: 700;
-    margin: 10px 0;
-    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 8px 0;
+    font-size: 0.85rem;
 }
 
 .status-available { color: #27ae60; }
-.status-borrowed { color: #c0392b; }
+.status-borrowed { color: #e74c3c; }
 
 .details-btn {
     background-color: #5ba4a4;
     color: white;
     border: none;
-    padding: 10px 0;
+    padding: 8px 0;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 5px;
     font-weight: 600;
+    font-size: 0.9rem;
     margin-top: auto;
-    cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s ease;
 }
 
 .details-btn:hover {
     background-color: #458383;
 }
+
+
+
+.details-body {
+    background-color: #f4f7f6;
+    min-height: 100vh;
+}
+
+.details-container {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.main-info-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 35px;
+    display: flex;
+    gap: 40px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.book-cover-wrapper img {
+    width: 210px;
+    height: 310px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.book-specs h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.book-specs p {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.btn-borrow, .btn-reserve {
+    background-color: #5ba4a4;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.btn-reserve {
+    background-color: #7ababa;
+}
+
+.btn-borrow:hover, .btn-reserve:hover {
+    filter: brightness(90%);
+}
+
+.rating-badge {
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+    font-size: 1.1rem;
+}
+
+.stars { color: #f1c40f; }
+
+/* Cardurile de jos */
+.info-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.review-item strong {
+    display: block;
+    font-size: 0.95rem;
+}
+
+.review-item p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#bookStatus {
+    font-weight: bold;
+}
+.status-available { color: #27ae60; }
+.status-borrowed { color: #e74c3c; }

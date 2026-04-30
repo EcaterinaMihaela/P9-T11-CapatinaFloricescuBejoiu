@@ -519,7 +519,6 @@ form {
    AUTHOR MANAGEMENT
 ========================= */
 
-
 .management-container {
     max-width: 900px;
     margin: 40px auto;
@@ -538,9 +537,6 @@ form {
     padding-bottom: 5px;
 }
 
-/* =========================
-   FORMULARUL DE ADAUGARE
-========================= */
 .info-box {
     background: #fdfdfd;
     padding: 25px;
@@ -573,7 +569,7 @@ form {
 }
 
 /* =========================
-   BUTOANE
+   BUTTONS
 ========================= */
 .btn-submit {
     background: #4ca1af;
@@ -609,7 +605,7 @@ form {
 }
 
 /* =========================
-   TABELUL DE AUTORI
+   AUTHORS
 ========================= */
 .table-wrapper {
     overflow-x: auto;
@@ -749,14 +745,13 @@ td strong {
 /* =========================
    CATEGORY CSS
 ========================= */
-/* Containerul care aliniază elementele ca în Author Management */
+
 .management-container {
     max-width: 1000px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
-/* Stilul pentru caseta de editare/adăugare (Info Box) */
 .info-box {
     background: white;
     padding: 25px;
@@ -773,7 +768,6 @@ td strong {
     margin-bottom: 20px;
 }
 
-/* Tabelul Administrativ */
 .table-wrapper {
     background: white;
     border-radius: 8px;
@@ -799,7 +793,6 @@ table td {
     color: #333;
 }
 
-/* Butoanele specifice din tabel */
 .btn-edit {
     background: #f1c40f;
     border: none;
