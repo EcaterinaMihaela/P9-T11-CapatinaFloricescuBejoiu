@@ -53,7 +53,9 @@ public class SecurityConfig {
                                 "/categories/**",
                                 "/publishers/**",
                                 "/add-book.html",
-                                "/edit-book.html"
+                                "/edit-book.html",
+                                "/library-statistics.html"
+
 
                         ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
