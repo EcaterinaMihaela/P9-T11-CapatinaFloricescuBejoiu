@@ -746,3 +746,75 @@ td strong {
 .btn-save {
     flex: 2;
 }
+/* =========================
+   CATEGORY CSS
+========================= */
+/* Containerul care aliniază elementele ca în Author Management */
+.management-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Stilul pentru caseta de editare/adăugare (Info Box) */
+.info-box {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-bottom: 40px;
+}
+
+.info-box h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    border-bottom: 2px solid #4ca1af;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Tabelul Administrativ */
+.table-wrapper {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background: #2c3e50;
+    color: white;
+    text-align: left;
+    padding: 15px;
+}
+
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+/* Butoanele specifice din tabel */
+.btn-edit {
+    background: #f1c40f;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -29,6 +29,7 @@ public class SecurityConfig {
                                 "/verify-code.html",
                                 "/author-management.html",
                                 "/publisher-management.html",
+                                "/category-management.html",
                                 "/librarian-ControlPanel.html",
                                 "/js/**",
                                 "/css/**",
@@ -38,6 +39,9 @@ public class SecurityConfig {
                                 "/authors",
                                 "/authors/**",
                                 "/publishers",
+                                "/publishers/**",
+                                "/categories",
+                                "/categories/**"
                                 "/publishers/**",
                                 "/books/**",
                                 "/api/books/**",
