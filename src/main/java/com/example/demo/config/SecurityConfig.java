@@ -6,6 +6,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.List;
+
 @Configuration
 public class SecurityConfig {
 
@@ -13,7 +15,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors(cors -> cors.configure(http))
+                .cors(cors -> cors.configurationSource(request -> {
+                    var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+                    corsConfig.setAllowedOrigins(List.of("*"));
+                    corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+                    corsConfig.setAllowedHeaders(List.of("*"));
+                    corsConfig.setAllowCredentials(false);
+                    return corsConfig;
+                }))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
@@ -44,15 +53,26 @@ public class SecurityConfig {
                                 "/categories",
                                 "/categories/**",
                                 "/publishers/**",
-                                "/books/**",
-                                "/api/books/**",
-                                "/add-book.html"
+                                "/add-book.html",
+                                "/edit-book.html",
+                                "/library-statistics.html"
+
 
                         ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                        .requestMatchers("/books", "/books/**").permitAll()
+                        .requestMatchers("/api/books/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/authors/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/publishers/**").permitAll()
+
+                                .requestMatchers(HttpMethod.POST, "/books").permitAll() // ADAUGĂ ASTA - Permite salvarea
+                                .requestMatchers(HttpMethod.POST, "/authors").permitAll() // ADAUGĂ ASTA (opțional)
+                                .requestMatchers(HttpMethod.POST, "/categories").permitAll() // ADAUGĂ ASTA (opțional)
+                                .requestMatchers(HttpMethod.POST, "/publishers").permitAll() // ADAUGĂ ASTA (opțional)
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())

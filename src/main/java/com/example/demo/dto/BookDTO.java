@@ -13,4 +13,5 @@ public class BookDTO {
     private Long authorID;
     private Long categoryID;
     private Long publisherID;
+    private String imageUrl;
 }

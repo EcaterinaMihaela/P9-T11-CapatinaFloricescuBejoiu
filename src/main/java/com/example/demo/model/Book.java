@@ -20,6 +20,8 @@ public class Book {
     private int availableStock = 0;
     private String status = "AVAILABLE";
 
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "categoryID")
     private Category category;

@@ -60,6 +60,14 @@ function updateNavbarUser() {
             if(memberLink) memberLink.style.display = "block";
         }
 
+        setTimeout(() => {
+            const librarianOnly = document.querySelectorAll(".librarian-only");
+
+            librarianOnly.forEach(el => {
+                el.style.display = (role === "LIBRARIAN") ? "block" : "none";
+            });
+        }, 0);
+
     } else {
         // Dacă nu e logat, ascundem tot
         if(userInfo) userInfo.style.setProperty("display", "none", "important");
