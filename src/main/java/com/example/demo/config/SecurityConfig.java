@@ -31,6 +31,7 @@ public class SecurityConfig {
                                 "/publisher-management.html",
                                 "/category-management.html",
                                 "/librarian-ControlPanel.html",
+                                "/reservations.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
