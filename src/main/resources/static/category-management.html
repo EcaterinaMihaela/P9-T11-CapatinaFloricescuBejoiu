@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Management | Librarian</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="dashboard.html" class="brand">My Library</a>
+        <div class="nav-links">
+            <a href="book-management.html">Manage Books</a>
+            <a href="author-management.html">Manage Authors</a>
+            <a href="category-management.html" class="active">Manage Categories</a>
+        </div>
+    </div>
+</nav>
+
+<div class="management-container">
+    <h1>Category Administration</h1>
+
+    <div class="info-box">
+        <h3 id="form-title">Add New Category</h3>
+        <form id="categoryForm">
+            <input type="hidden" id="category-id">
+
+            <div class="form-row" style="grid-template-columns: 1fr;">
+                <label for="category-name">Category Name</label>
+                <input type="text" id="category-name" placeholder="Enter category name" required>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <button type="submit" class="btn-submit">Save Category</button>
+                <button type="button" class="btn-cancel" onclick="resetCategoryForm()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="categoryTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="js/category-management.js"></script>
+</body>
+</html>
