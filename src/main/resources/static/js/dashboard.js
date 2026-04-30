@@ -75,40 +75,41 @@ function filterBooks() {
     });
 
     renderBooks(filtered);
-}
-function renderBooks(books) {
-    const bookGrid = document.getElementById("bookGrid");
-    if (!bookGrid) return;
-    bookGrid.innerHTML = "";
+}function renderBooks(books) {
+     const bookGrid = document.getElementById("bookGrid");
+     if (!bookGrid) return;
+     bookGrid.innerHTML = "";
 
-    if (books.length === 0) {
-        bookGrid.innerHTML = "<p class='text-center w-100'>No books found.</p>";
-        return;
-    }
+     if (books.length === 0) {
+         bookGrid.innerHTML = "<p class='text-center w-100'>No books found.</p>";
+         return;
+     }
 
-    books.forEach(book => {
-        const card = document.createElement("div");
-        card.className = "book-card";
+     books.forEach(book => {
+         const card = document.createElement("div");
+         card.className = "book-card";
 
-        const image = book.imageUrl || "https://placehold.co/300x450?text=No+Cover";
-        const catName = book.category ? (book.category.categoryName || book.category.categoryTitle || "General") : "N/A";
-        const authName = book.author ? (book.author.authorName || "Unknown Author") : "N/A";
+         const image = book.imageUrl || "https://placehold.co/300x450?text=No+Cover";
+         const catName = book.category ? (book.category.categoryName || book.category.categoryTitle || "General") : "N/A";
+         const authName = book.author ? (book.author.authorName || "Unknown Author") : "N/A";
 
-        const isAvailable = book.availableStock > 0;
-        const statusText = isAvailable ? "Available" : "Borrowed";
-        const statusClass = isAvailable ? "status-available" : "status-borrowed";
+         const isAvailable = book.availableStock > 0;
+         const statusText = isAvailable ? "Available" : "Borrowed";
+         const statusClass = isAvailable ? "status-available" : "status-borrowed";
 
-        card.innerHTML = `
-            <img src="${image}" alt="${book.bookTitle}">
-            <h3>${book.bookTitle}</h3>
-            <p>${authName}</p>
-            <p>${catName}</p>
-            <p class="status-text ${statusClass}">${statusText}</p>
-            <button class="details-btn" onclick="viewDetails(${book.bookID})">View Details</button>
-        `;
-        bookGrid.appendChild(card);
-    });
-}
+         card.innerHTML = `
+             <img src="${image}" alt="${book.bookTitle}">
+             <div class="book-info">
+                 <h3>${book.bookTitle}</h3>
+                 <p>${authName}</p>
+                 <p>${catName}</p>
+                 <p class="${statusClass} fw-bold">${statusText}</p>
+             </div>
+             <button class="details-btn" onclick="viewDetails(${book.bookID})">View Details</button>
+         `;
+         bookGrid.appendChild(card);
+     });
+ }
 
 function viewDetails(bookId) {
     window.location.href = `/book-details.html?id=${bookId}`;
