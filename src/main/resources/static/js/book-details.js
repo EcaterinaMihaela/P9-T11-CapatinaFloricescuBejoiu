@@ -1,14 +1,18 @@
+let currentEditId = null;
+
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('id');
+
+    const loggedUser = localStorage.getItem("username") || "Anonymous";
+    const userDisplay = document.getElementById("currentUserDisplay");
+    if (userDisplay) userDisplay.innerText = loggedUser;
 
     if (bookId) {
         loadBookDetails(bookId);
         loadReviews(bookId);
     } else {
         console.error("Book ID is missing from URL!");
-        document.querySelector('.details-container').innerHTML =
-            "<h2 class='text-center mt-5'>Error: Book not found.</h2>";
     }
 
     const btnPost = document.getElementById("btnPostReview");
@@ -20,114 +24,133 @@ document.addEventListener("DOMContentLoaded", () => {
 async function loadBookDetails(id) {
     try {
         const response = await fetch(`/books/${id}`);
-        if (!response.ok) throw new Error("Book does not exist in the database.");
-
+        if (!response.ok) throw new Error("Error loading book.");
         const book = await response.json();
 
-        document.getElementById('bookTitle').innerText = book.bookTitle || "Title unavailable";
-        document.getElementById('bookDescription').innerText = book.bookDescription || "No description available for this book.";
-
-        const categoryDisplay = book.category ?
-            (book.category.categoryName || book.category.categoryTitle || book.category.name || "General")
-            : "Unspecified";
-        document.getElementById('bookCategory').innerText = categoryDisplay;
-
-        document.getElementById('bookAuthor').innerText = book.author?.authorName || "Unknown Author";
-        document.getElementById('bookPublisher').innerText = book.publisher?.publisherName || "Unspecified";
-
-        const coverImg = document.getElementById('bookCover');
-        if (coverImg) {
-            coverImg.src = book.imageUrl || "https://placehold.co/300x450?text=No+Cover";
-        }
+        document.getElementById('bookTitle').innerText = book.bookTitle;
+        document.getElementById('bookDescription').innerText = book.bookDescription || "No description available.";
+        document.getElementById('bookAuthor').innerText = book.author?.authorName || "Unknown";
+        document.getElementById('bookCategory').innerText = book.category?.categoryName || "General";
+        document.getElementById('bookPublisher').innerText = book.publisher?.publisherName || "Not specified";
 
         const statusEl = document.getElementById('bookStatus');
-        if (statusEl) {
-            const isAvailable = book.availableStock > 0;
-            statusEl.innerText = isAvailable ? "Available" : "Borrowed";
-            statusEl.className = isAvailable ? "text-success fw-bold" : "text-danger fw-bold";
-        }
+        statusEl.innerText = book.availableStock > 0 ? "Available" : "Unavailable";
+        statusEl.className = book.availableStock > 0 ? "text-success fw-bold" : "text-danger fw-bold";
 
+        const coverImg = document.getElementById('bookCover');
+        if (coverImg) coverImg.src = book.imageUrl || "https://placehold.co/200x300";
     } catch (err) {
-        console.error("Error fetching details:", err);
+        console.error(err);
     }
 }
 
 async function loadReviews(id) {
-    const reviewsList = document.getElementById('reviewsList');
-    if (!reviewsList) return;
+    const reviewsContainer = document.getElementById('reviewsList');
+    const template = document.getElementById('review-template');
+    const currentUser = localStorage.getItem("username");
 
     try {
-        const response = await fetch(`/api/reviews/book/${id}`);
+        const response = await fetch(`/reviews/book/${id}`);
         const reviews = await response.json();
-
-        reviewsList.innerHTML = "";
+        reviewsContainer.innerHTML = "";
 
         if (!reviews || reviews.length === 0) {
-            reviewsList.innerHTML = "<p class='text-muted text-center'>No reviews yet. Be the first to leave one!</p>";
+            reviewsContainer.innerHTML = "<p class='text-muted text-center py-3'>Be the first to leave a review!</p>";
             return;
         }
 
         reviews.forEach(rev => {
-            const div = document.createElement("div");
-            div.className = "review-item mb-3 pb-2 border-bottom";
+            const clone = template.content.cloneNode(true);
+            const rId = rev.id || rev.reviewID;
 
-            const starCount = rev.rating || 5;
-            const stars = "★".repeat(starCount) + "☆".repeat(5 - starCount);
+            clone.querySelector('.review-user').innerText = rev.userName || "User";
+            clone.querySelector('.review-text').innerText = rev.reviewText;
+            clone.querySelector('.stars-container').innerText = "★".repeat(rev.rating) + "☆".repeat(5 - rev.rating);
 
-            div.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong>${rev.userName || "User"}</strong>
-                    <span style="color: #f1c40f;">${stars}</span>
-                </div>
-                <p class="mb-0 text-secondary" style="font-size: 0.9rem;">${rev.commentText}</p>
-            `;
-            reviewsList.appendChild(div);
+            if (rev.userName === currentUser && currentUser !== "Anonymous") {
+                const actions = clone.querySelector('.review-actions');
+                actions.classList.remove('d-none');
+
+                clone.querySelector('.btn-edit').onclick = () => prepareEdit(rId, rev.reviewText, rev.rating);
+                clone.querySelector('.btn-delete').onclick = () => deleteReview(rId);
+            }
+
+            reviewsContainer.appendChild(clone);
         });
     } catch (err) {
-        console.error("Error loading reviews:", err);
-        reviewsList.innerHTML = "<p class='text-danger'>Reviews could not be loaded.</p>";
+        reviewsContainer.innerHTML = "<p class='text-danger'>Error loading reviews.</p>";
     }
+}
+
+function prepareEdit(id, text, rating) {
+    currentEditId = id;
+
+    document.getElementById("reviewInput").value = text;
+    document.getElementById("reviewRating").value = rating;
+
+    const btn = document.getElementById("btnPostReview");
+    btn.innerText = "Update";
+    btn.classList.replace("btn-teal", "btn-warning-teal");
+
+    document.getElementById("reviewInput").focus();
 }
 
 async function postReview(bookId) {
     const input = document.getElementById("reviewInput");
-    const comment = input.value.trim();
+    const ratingSelect = document.getElementById("reviewRating");
+    const text = input.value.trim();
 
-    if (!comment) {
-        alert("Please write a comment.");
-        return;
-    }
+    if (!text) return alert("Please write a comment.");
 
     const reviewData = {
         bookId: parseInt(bookId),
-        commentText: comment,
-        rating: 5,
-        userName: localStorage.getItem("username") || "Anonymous"
+        memberId: parseInt(localStorage.getItem("userId")),
+        reviewText: text,
+        rating: parseInt(ratingSelect.value),
+        userName: localStorage.getItem("username")
     };
 
+    const url = currentEditId ? `/reviews/${currentEditId}` : '/reviews';
+    const method = currentEditId ? 'PUT' : 'POST';
+
     try {
-        const response = await fetch('/api/reviews', {
-            method: 'POST',
+        const response = await fetch(url, {
+            method: method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(reviewData)
         });
 
         if (response.ok) {
+            currentEditId = null;
             input.value = "";
+            const btn = document.getElementById("btnPostReview");
+            btn.innerText = "Post";
+            btn.classList.replace("btn-warning-teal", "btn-teal");
+
             loadReviews(bookId);
         } else {
             alert("Error saving review.");
         }
     } catch (err) {
-        console.error("Error posting:", err);
-        alert("Server did not respond.");
+        alert("Server connection error.");
     }
 }
 
-function borrowBook() {
-    alert("The borrow process will be initiated!");
-}
+async function deleteReview(reviewId) {
+    if (!confirm("Are you sure you want to delete this review?")) return;
 
-function reserveBook() {
-    alert("The book has been reserved!");
+    try {
+        const response = await fetch(`/reviews/${reviewId}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            const urlParams = new URLSearchParams(window.location.search);
+            loadReviews(urlParams.get('id'));
+        } else {
+            alert("Could not delete review.");
+        }
+    } catch (err) {
+        console.error("Error:", err);
+    }
 }

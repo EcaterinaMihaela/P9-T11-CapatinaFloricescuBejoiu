@@ -859,3 +859,44 @@ table td {
     border-color: #4ca1af;
     box-shadow: 0 0 8px rgba(76,161,175,0.3);
 }
+
+/* ===== REVIEW PAGE FOR BOOK DETAILS CSS =====*/
+
+.btn-teal, .btn-edit {
+    background-color: #008080 !important;
+    border-color: #008080 !important;
+    color: white !important;
+    padding: 5px 12px !important;
+    border-radius: 6px !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-teal:hover, .btn-edit:hover {
+    background-color: #006666 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-danger-teal {
+    background-color: #e63946 !important;
+    border-color: #e63946 !important;
+    color: white !important;
+    padding: 5px 12px !important;
+    border-radius: 6px !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-danger-teal:hover {
+    background-color: #d62828 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-warning-teal {
+    background-color: #2a9d8f !important;
+    border-color: #2a9d8f !important;
+    color: white !important;
+    animation: pulse 1.5s infinite;
+}

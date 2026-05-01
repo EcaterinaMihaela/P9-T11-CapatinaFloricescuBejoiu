@@ -11,6 +11,8 @@ public interface ReviewService {
 
     Review getById(Long id);
 
+    List<Review> getReviewsByBookId(Long bookId);
+
     Review create(ReviewDTO dto);
 
     Review update(Long id, ReviewDTO dto);
