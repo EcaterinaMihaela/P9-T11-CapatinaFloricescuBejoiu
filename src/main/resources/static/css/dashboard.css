@@ -242,3 +242,73 @@
 #bookStatus {
   font-weight: bold;
 }
+
+
+/* ==== REVIEW MANAGEMENT PAGE ====*/
+
+/* Background for the table header  */
+.bg-teal {
+    background-color: #008080 !important;
+    color: white !important;
+}
+
+/* Teal text color for icons and titles */
+.text-teal {
+    color: #008080 !important;
+}
+
+.btn-teal {
+    background-color: #008080 !important;
+    border-color: #008080 !important;
+    color: white !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-teal:hover {
+    background-color: #006666 !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Solid Red Delete Button */
+.btn-danger-teal {
+    background-color: #e63946 !important;
+    border-color: #e63946 !important;
+    color: white !important;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-danger-teal:hover {
+    background-color: #d62828 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(230, 57, 70, 0.3);
+}
+
+.review-row:hover {
+    background-color: #f1fafa !important;
+}
+
+.avatar-circle {
+    width: 32px;
+    height: 32px;
+    background-color: #e9ecef;
+    background-size: cover;
+    border-radius: 50%;
+    border: 1px solid #dee2e6;
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Shadow for the main container card */
+.card.shadow-sm {
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+}

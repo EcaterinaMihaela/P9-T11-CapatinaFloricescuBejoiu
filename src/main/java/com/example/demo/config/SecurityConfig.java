@@ -44,6 +44,7 @@ public class SecurityConfig {
                                 "/edit-book.html",
                                 "/library-statistics.html",
                                 "/book-details.html",
+                                "/reviews-management.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
