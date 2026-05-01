@@ -75,7 +75,17 @@ th {
     background: #e74c3c;
     color: white;
     border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background:  #c75b63;
+    transform: translateY(-1px);
+}
+
+.cancel-btn:active {
+    transform: translateY(0);
 }

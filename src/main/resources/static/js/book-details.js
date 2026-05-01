@@ -124,10 +124,90 @@ async function postReview(bookId) {
     }
 }
 
-function borrowBook() {
-    alert("The borrow process will be initiated!");
+function getCurrentUserId() {
+    return localStorage.getItem("userId"); // sau memberId dacă așa ai salvat
 }
 
-function reserveBook() {
-    alert("The book has been reserved!");
+async function borrowBook() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get('id');
+    const memberId = getCurrentUserId();
+
+    if (!memberId) {
+        alert("You must be logged in!");
+        return;
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+    const dueDate = new Date();
+    dueDate.setDate(dueDate.getDate() + 14); // 14 zile
+    const due = dueDate.toISOString().split("T")[0];
+
+    try {
+        const response = await fetch("/loans", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                borrowDate: today,
+                dueDate: due,
+                returnDate: null,
+                status: "BORROWED",
+                memberId: memberId,
+                librarianId: 1, // temporar (hardcod)
+                bookId: bookId
+            })
+        });
+
+        if (response.ok) {
+            alert("Book borrowed successfully!");
+        } else {
+            const text = await response.text();
+            alert(text);
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert("Server error");
+    }
+}
+
+async function reserveBook() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get('id');
+    const memberId = getCurrentUserId();
+
+    if (!memberId) {
+        alert("You must be logged in!");
+        return;
+    }
+
+    try {
+        const response = await fetch("/reservations", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                reservationDate: new Date().toISOString().split("T")[0],
+                status: "PENDING",
+                memberId: memberId,
+                bookId: bookId
+            })
+        });
+
+        if (response.ok) {
+            alert("Book reserved!");
+        } else {
+            const text = await response.text();
+            alert(text);
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert("Server error");
+    }
 }

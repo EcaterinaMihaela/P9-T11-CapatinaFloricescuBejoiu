@@ -56,11 +56,13 @@ public class SecurityConfig {
                                 "/publishers/**",
                                 "/categories",
                                 "/categories/**",
-                                "/publishers/**"
+                                "/publishers/**",
+                                "/reservations",
+                                "/reservations/**"
 
 
 
-                        ).permitAll()
+                                ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
