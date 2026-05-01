@@ -41,6 +41,10 @@ public class SecurityConfig {
                                 "/category-management.html",
                                 "/librarian-ControlPanel.html",
                                 "/reservations.html",
+                                "/add-book.html",
+                                "/edit-book.html",
+                                "/library-statistics.html",
+                                "/book-details.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
@@ -52,10 +56,8 @@ public class SecurityConfig {
                                 "/publishers/**",
                                 "/categories",
                                 "/categories/**",
-                                "/publishers/**",
-                                "/add-book.html",
-                                "/edit-book.html",
-                                "/library-statistics.html"
+                                "/publishers/**"
+
 
 
                         ).permitAll()
@@ -69,10 +71,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/publishers/**").permitAll()
 
-                                .requestMatchers(HttpMethod.POST, "/books").permitAll() // ADAUGĂ ASTA - Permite salvarea
-                                .requestMatchers(HttpMethod.POST, "/authors").permitAll() // ADAUGĂ ASTA (opțional)
-                                .requestMatchers(HttpMethod.POST, "/categories").permitAll() // ADAUGĂ ASTA (opțional)
-                                .requestMatchers(HttpMethod.POST, "/publishers").permitAll() // ADAUGĂ ASTA (opțional)
+                                .requestMatchers(HttpMethod.POST, "/books").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/authors").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/categories").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/publishers").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())
