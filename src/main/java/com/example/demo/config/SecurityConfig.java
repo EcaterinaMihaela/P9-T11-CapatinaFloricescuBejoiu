@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/users",
                                 "/members",
+                                "/librarians",
                                 "/profiles/**",
                                 "/authors",
                                 "/authors/**",
@@ -70,6 +71,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                         .requestMatchers("/books", "/books/**").permitAll()
                         .requestMatchers("/api/books/**").permitAll()
+                        .requestMatchers("/users/*/role").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/authors/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
@@ -79,6 +81,9 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/authors").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/categories").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/publishers").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/librarians/**").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/users/*/role").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())

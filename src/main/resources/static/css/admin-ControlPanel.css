@@ -7,36 +7,7 @@ body {
     background: #eef3f7;
 }
 
-/* =========================
-   NAVBAR (BOOTSTRAP OVERRIDE)
-========================= */
-/* NAVBAR */
-.custom-navbar {
-    width: 100%;
-    background: linear-gradient(120deg, #2c3e50, #4ca1af) !important;
-}
 
-.brand-title {
-    font-family: 'Times New Roman', serif;
-}
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    background: rgba(44, 62, 80, 0.98);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.navbar-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-}
 /* =========================
    PAGE LAYOUT
 ========================= */

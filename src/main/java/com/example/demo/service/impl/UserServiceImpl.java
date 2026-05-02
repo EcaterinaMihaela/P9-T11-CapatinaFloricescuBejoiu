@@ -1,7 +1,9 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.model.Librarian;
 import com.example.demo.model.Member;
+import com.example.demo.model.Reservation;
 import com.example.demo.model.User;
 import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.UserService;
@@ -116,22 +118,25 @@ public class UserServiceImpl implements UserService {
         System.out.println("User ID: " + userId);
         System.out.println("Username: " + user.getUsername());
 
-        // 1. Șterge Member-ul dacă există
+        // 1. Șterge Member-ul dacă există si librar
         repo.member.findById(userId).ifPresent(member -> {
             System.out.println("Deleting Member...");
             repo.member.delete(member);
         });
 
+        repo.librarian.findById(userId).ifPresent(librarian -> {
+            System.out.println("Deleting Librarian...");
+            repo.librarian.delete(librarian);
+        });
+
         // 2. Șterge Rezervările legate de acest membru (dacă există)
-        // Uncomment dacă ai rezervări
-        // List<Reservation> reservations = repo.reservation.findByMember_MemberID(userId);
-        // if (!reservations.isEmpty()) {
-        //     System.out.println("Deleting " + reservations.size() + " reservations...");
-        //     repo.reservation.deleteAll(reservations);
-        // }
+        List<Reservation> reservations = repo.reservation.findByMember_MemberID(userId);
+        if (!reservations.isEmpty()) {
+             System.out.println("Deleting " + reservations.size() + " reservations...");
+             repo.reservation.deleteAll(reservations);
+         }
 
         // 3. Șterge Împrumuturile legate de acest membru (dacă există)
-        // Uncomment dacă ai loans
         // List<Loan> loans = repo.loan.findByMember_MemberID(userId);
         // if (!loans.isEmpty()) {
         //     System.out.println("Deleting " + loans.size() + " loans...");
@@ -139,7 +144,6 @@ public class UserServiceImpl implements UserService {
         // }
 
         // 4. UserProfile-ul se șterge automat prin CascadeType.ALL
-        // dar dacă vrei să fii explicit:
         if (user.getProfile() != null) {
             System.out.println("Deleting UserProfile...");
             repo.userProfile.delete(user.getProfile());
@@ -180,13 +184,12 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = repo.user.save(user);
 
+        // ============= MEMBER LOGIC =============
         // Dacă rolul devine MEMBER și nu era MEMBER înainte
         if ("MEMBER".equals(newRole) && !"MEMBER".equals(oldRole)) {
-            // Verifică dacă există deja un Member pentru acest user
             boolean memberExists = repo.member.findById(userId).isPresent();
 
             if (!memberExists) {
-                // Creează Member nou
                 Member member = new Member();
                 member.setMemberID(savedUser.getUserid());
                 member.setUser(savedUser);
@@ -194,17 +197,40 @@ public class UserServiceImpl implements UserService {
                 member.setStatus("ACTIVE");
 
                 repo.member.save(member);
-
-                System.out.println("✅ Member created for user: " + savedUser.getUsername());
+                System.out.println("Member created for user: " + savedUser.getUsername());
             }
         }
 
-        // Dacă rolul era MEMBER și acum devine altceva (LIBRARIAN/ADMIN)
+        // Dacă rolul era MEMBER și acum devine altceva
         if ("MEMBER".equals(oldRole) && !"MEMBER".equals(newRole)) {
-            // Șterge Member-ul dacă există
             repo.member.findById(userId).ifPresent(member -> {
                 repo.member.delete(member);
-                System.out.println("🗑️ Member deleted for user: " + savedUser.getUsername());
+                System.out.println("Member deleted for user: " + savedUser.getUsername());
+            });
+        }
+
+        // ============= LIBRARIAN LOGIC =============
+        // Dacă rolul devine LIBRARIAN și nu era LIBRARIAN înainte
+
+        if ("LIBRARIAN".equals(newRole) && !"LIBRARIAN".equals(oldRole)) {
+            boolean librarianExists = repo.librarian.findById(userId).isPresent();
+
+            if (!librarianExists) {
+                Librarian librarian = new Librarian();
+                // librarian.setLibrarianID(userId); // NU mai este nevoie de asta cu @MapsId
+                librarian.setUser(savedUser); // Această linie va seta automat ID-ul bibliotecarului
+                librarian.setResponsibilities("General library duties");
+
+                repo.librarian.save(librarian);
+                System.out.println("Librarian created for user: " + savedUser.getUsername());
+            }
+        }
+
+        // Dacă rolul era LIBRARIAN și acum devine altceva
+        if ("LIBRARIAN".equals(oldRole) && !"LIBRARIAN".equals(newRole)) {
+            repo.librarian.findById(userId).ifPresent(librarian -> {
+                repo.librarian.delete(librarian);
+                System.out.println("Librarian deleted for user: " + savedUser.getUsername());
             });
         }
 
