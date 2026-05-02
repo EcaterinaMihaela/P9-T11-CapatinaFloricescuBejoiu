@@ -30,8 +30,15 @@ h1 {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 2 coloane pe tablete/mobil */
     gap: 20px;
+}
+
+/* Pe ecrane mari, punem 3 coloane pentru că avem 6 carduri în total */
+@media (min-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .stat-card {

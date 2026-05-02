@@ -2,15 +2,17 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 
 async function loadDashboard() {
     try {
-        const [booksRes, authorsRes, categoriesRes] = await Promise.all([
+        const [booksRes, authorsRes, categoriesRes,reservationsRes] = await Promise.all([
             fetch("/books"),
             fetch("/authors"),
-            fetch("/categories")
+            fetch("/categories"),
+            fetch("/reservations")
         ]);
 
         const books = await booksRes.json();
         const authors = await authorsRes.json();
         const categories = await categoriesRes.json();
+        const reservations = await reservationsRes.json();
 
         document.getElementById("totalBooks").textContent = books.length;
         document.getElementById("availableBooks").textContent =
@@ -19,6 +21,11 @@ async function loadDashboard() {
         document.getElementById("totalAuthors").textContent = authors.length;
         document.getElementById("totalCategories").textContent = categories.length;
 
+const pendingCount = reservations.filter(res => res.status === "PENDING").length;
+        const acceptedCount = reservations.filter(res => res.status === "APPROVED").length;
+
+        document.getElementById("pendingReservations").textContent = pendingCount;
+        document.getElementById("acceptedReservations").textContent = acceptedCount;
         loadRecentBooks(books);
 
     } catch (err) {
