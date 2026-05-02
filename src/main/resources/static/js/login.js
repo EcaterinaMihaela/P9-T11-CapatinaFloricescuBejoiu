@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("username", data.username);
             localStorage.setItem("email", data.email);
+            localStorage.setItem("memberId", data.memberId);
 
             window.location.replace("/dashboard.html");
 

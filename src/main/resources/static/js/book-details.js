@@ -180,6 +180,8 @@ async function reserveBook() {
     const bookId = urlParams.get('id');
     const memberId = getCurrentUserId();
 
+console.log("memberId:", memberId);
+console.log("bookId:", bookId);
     if (!memberId) {
         alert("You must be logged in!");
         return;

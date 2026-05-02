@@ -16,8 +16,10 @@ public class Reservation {
     private String status = "PENDING";
 
     @ManyToOne
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne
+    @JoinColumn(name = "book_id")
     private Book book;
 }

@@ -1,0 +1,91 @@
+.admin-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.15);
+    margin: 40px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.reservation-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 15px;
+    border: 1px solid #eaeaea;
+    transition: 0.2s;
+}
+
+.reservation-card:hover {
+    transform: scale(1.01);
+}
+
+.reservation-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.reservation-details img {
+    width: 55px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.reservation-info b {
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.reservation-info span {
+    display: block;
+    color: #666;
+    font-size: 13px;
+}
+
+.status-pending {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.status-approved {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-rejected {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.btn-approve {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    margin-right: 8px;
+}
+
+.btn-reject {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+}
+
+.btn-approve:hover { opacity: 0.85; }
+.btn-reject:hover { opacity: 0.85; }

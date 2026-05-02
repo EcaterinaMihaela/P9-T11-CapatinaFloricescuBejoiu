@@ -1,9 +1,11 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.model.Member;
 import com.example.demo.model.User;
 import com.example.demo.repository.impl.RepositoryWrapper;
 import com.example.demo.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -126,18 +128,45 @@ public class UserServiceImpl implements UserService {
         repo.user.save(user);
     }
 
-    public UserDTO changeRole(Long id, String role) {
-        User user = getEntityById(id);
-        user.setRole(role);
-        repo.user.save(user);
+    @Override
+    @Transactional
+    public User changeRole(Long userId, String newRole) {
+        User user = repo.user.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        UserDTO dto = new UserDTO();
-        dto.setId(user.getUserid());
-        dto.setUsername(user.getUsername());
-        dto.setRole(user.getRole());
-        dto.setStatus(user.getStatus());
-        dto.setBanReason(user.getBanReason());
+        String oldRole = user.getRole();
+        user.setRole(newRole);
 
-        return dto;
+        User savedUser = repo.user.save(user);
+
+        // Dacă rolul devine MEMBER și nu era MEMBER înainte
+        if ("MEMBER".equals(newRole) && !"MEMBER".equals(oldRole)) {
+            // Verifică dacă există deja un Member pentru acest user
+            boolean memberExists = repo.member.findById(userId).isPresent();
+
+            if (!memberExists) {
+                // Creează Member nou
+                Member member = new Member();
+                member.setMemberID(savedUser.getUserid());
+                member.setUser(savedUser);
+                member.setBorrowLimit(5);
+                member.setStatus("ACTIVE");
+
+                repo.member.save(member);
+
+                System.out.println("✅ Member created for user: " + savedUser.getUsername());
+            }
+        }
+
+        // Dacă rolul era MEMBER și acum devine altceva (LIBRARIAN/ADMIN)
+        if ("MEMBER".equals(oldRole) && !"MEMBER".equals(newRole)) {
+            // Șterge Member-ul dacă există
+            repo.member.findById(userId).ifPresent(member -> {
+                repo.member.delete(member);
+                System.out.println("🗑️ Member deleted for user: " + savedUser.getUsername());
+            });
+        }
+
+        return savedUser;
     }
 }
