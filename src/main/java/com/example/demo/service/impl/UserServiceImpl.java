@@ -107,8 +107,49 @@ public class UserServiceImpl implements UserService {
         return result;
     }
     @Override
-    public void delete(Long id) {
-        repo.user.deleteById(id);
+    @Transactional
+    public void delete(Long userId) {
+        User user = repo.user.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        System.out.println("=== DELETING USER ===");
+        System.out.println("User ID: " + userId);
+        System.out.println("Username: " + user.getUsername());
+
+        // 1. Șterge Member-ul dacă există
+        repo.member.findById(userId).ifPresent(member -> {
+            System.out.println("Deleting Member...");
+            repo.member.delete(member);
+        });
+
+        // 2. Șterge Rezervările legate de acest membru (dacă există)
+        // Uncomment dacă ai rezervări
+        // List<Reservation> reservations = repo.reservation.findByMember_MemberID(userId);
+        // if (!reservations.isEmpty()) {
+        //     System.out.println("Deleting " + reservations.size() + " reservations...");
+        //     repo.reservation.deleteAll(reservations);
+        // }
+
+        // 3. Șterge Împrumuturile legate de acest membru (dacă există)
+        // Uncomment dacă ai loans
+        // List<Loan> loans = repo.loan.findByMember_MemberID(userId);
+        // if (!loans.isEmpty()) {
+        //     System.out.println("Deleting " + loans.size() + " loans...");
+        //     repo.loan.deleteAll(loans);
+        // }
+
+        // 4. UserProfile-ul se șterge automat prin CascadeType.ALL
+        // dar dacă vrei să fii explicit:
+        if (user.getProfile() != null) {
+            System.out.println("Deleting UserProfile...");
+            repo.userProfile.delete(user.getProfile());
+        }
+
+        // 5. Șterge User-ul
+        System.out.println("Deleting User...");
+        repo.user.delete(user);
+
+        System.out.println("=== USER DELETED SUCCESSFULLY ===");
     }
 
     private User getEntityById(Long id) {
