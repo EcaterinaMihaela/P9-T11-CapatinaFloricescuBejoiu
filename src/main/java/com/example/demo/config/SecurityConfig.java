@@ -55,7 +55,9 @@ public class SecurityConfig {
                                 "/publishers/**",
                                 "/categories",
                                 "/categories/**",
-                                "/publishers/**"
+                                "/publishers/**",
+                                "/reports.html",
+                                "/reports/**"
 
 
 
