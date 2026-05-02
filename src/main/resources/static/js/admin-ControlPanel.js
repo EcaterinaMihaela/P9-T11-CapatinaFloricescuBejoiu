@@ -75,14 +75,25 @@ async function deleteUser(id) {
     location.reload();
 }
 
-/* CHANGE ROLE */
 async function changeRole(id, role) {
-    await fetch(`/users/${id}/role`, {
+    // Folosește URL relativ ca la celelalte funcții
+    const response = await fetch(`/users/${id}/role`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role })
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            role: role
+        })
     });
+
+    if (!response.ok) {
+        alert("Eroare la schimbarea rolului!");
+    } else {
+        console.log("Rol actualizat cu succes");
+    }
 }
+
 
 /* BAN USER */
 async function banUser(id) {
@@ -104,3 +115,11 @@ async function unbanUser(id) {
 
     location.reload();
 }
+
+document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "logoutBtn") {
+        e.preventDefault();
+        localStorage.clear();
+        window.location.href = "/login.html";
+    }
+});

@@ -48,9 +48,11 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/role")
-    public User changeRole(@PathVariable Long id, @RequestBody Map<String, String> body) {
-        String newRole = body.get("role");
-        return service.changeRole(id, newRole);
+    public User changeRole(@PathVariable Long id,
+                           @RequestBody Map<String, String> body) {
+
+        String role = body.get("role");
+        return service.changeRole(id, role);
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
