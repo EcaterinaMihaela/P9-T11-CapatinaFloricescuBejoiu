@@ -29,6 +29,13 @@ public class ReservationController {
 
     @PostMapping
     public Reservation create(@RequestBody ReservationDTO dto) {
+
+        System.out.println("=== RESERVATION DTO RECEIVED ===");
+        System.out.println("memberId = " + dto.getMemberId());
+        System.out.println("bookId = " + dto.getBookId());
+        System.out.println("status = " + dto.getStatus());
+        System.out.println("date = " + dto.getReservationDate());
+
         return service.create(dto);
     }
 
@@ -41,5 +48,20 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    @GetMapping("/member/{memberId}")
+    public List<Reservation> getByMember(@PathVariable Long memberId) {
+        return service.getByMember(memberId);
+    }
+
+    @PutMapping("/{id}/approve")
+    public Reservation approve(@PathVariable Long id) {
+        return service.approve(id);
+    }
+
+    @PutMapping("/{id}/reject")
+    public Reservation reject(@PathVariable Long id) {
+        return service.reject(id);
     }
 }

@@ -15,5 +15,5 @@ public interface UserService {
 
     void banUser(Long id, String reason);
     void unbanUser(Long id);
-    UserDTO changeRole(Long id, String role);
+    User changeRole(Long userId, String newRole);
 }

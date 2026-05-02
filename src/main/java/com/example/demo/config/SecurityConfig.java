@@ -40,14 +40,17 @@ public class SecurityConfig {
                                 "/publisher-management.html",
                                 "/category-management.html",
                                 "/librarian-ControlPanel.html",
+                                "/reservations.html",
                                 "/add-book.html",
                                 "/edit-book.html",
                                 "/library-statistics.html",
                                 "/book-details.html",
+                                "/librarian-reservationManagement.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
                                 "/users",
+                                "/members",
                                 "/profiles/**",
                                 "/authors",
                                 "/authors/**",
@@ -58,6 +61,9 @@ public class SecurityConfig {
                                 "/publishers/**",
                                 "/reports.html",
                                 "/reports/**"
+                                "/publishers/**",
+                                "/reservations",
+                                "/reservations/**"
 
 
 

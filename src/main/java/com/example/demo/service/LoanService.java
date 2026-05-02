@@ -16,4 +16,5 @@ public interface LoanService {
     Loan update(Long id, LoanDTO dto);
 
     void delete(Long id);
+    Loan returnBook(Long loanId);
 }

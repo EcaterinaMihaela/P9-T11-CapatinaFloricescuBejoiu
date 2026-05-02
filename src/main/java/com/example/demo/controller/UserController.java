@@ -6,6 +6,7 @@ import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -47,8 +48,9 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/role")
-    public UserDTO changeRole(@PathVariable Long id, @RequestBody UserDTO dto) {
-        return service.changeRole(id, dto.getRole());
+    public User changeRole(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        String newRole = body.get("role");
+        return service.changeRole(id, newRole);
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {

@@ -35,6 +35,7 @@ function updateNavbarUser() {
     const adminLink = document.getElementById("adminLink");
     const librarianLink = document.getElementById("librarianLink");
     const memberLink = document.getElementById("memberLink");
+    const librarianReservationsLink = document.getElementById("librarianReservationsLink");
     const reportsLink = document.getElementById("reportsLink"); //
 
     if (username && userInfo && logoutBtn) {
@@ -58,6 +59,7 @@ function updateNavbarUser() {
         }
         else if (role === "LIBRARIAN") {
             if(librarianLink) librarianLink.style.display = "block";
+            if (librarianReservationsLink) librarianReservationsLink.style.display = "block";
             if (reportsLink) reportsLink.style.display = "block";
         }
         else if (role === "MEMBER") {
@@ -79,5 +81,6 @@ function updateNavbarUser() {
         if(adminLink) adminLink.style.display = "none";
         if(librarianLink) librarianLink.style.display = "none";
         if(memberLink) memberLink.style.display = "none";
+        if(librarianReservationsLink) librarianReservationsLink.style.display = "none";
     }
 }

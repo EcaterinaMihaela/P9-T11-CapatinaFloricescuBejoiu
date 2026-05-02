@@ -74,6 +74,7 @@ body {
     display: flex;
     gap: 30px;
     align-items: center;
+    transition: all 0.25s ease;
 }
 
 /* stil general pentru butoane */
@@ -96,6 +97,33 @@ body {
 .signup-btn:hover {
     background: white;
     color: #2c3e50;
+}
+
+#librarianLink,
+#librarianReservationsLink,
+.librarian-only .nav-link {
+    color: #f1c40f !important; /* galben soft */
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+#librarianLink:hover,
+#librarianReservationsLink:hover,
+.librarian-only .nav-link:hover {
+    color: #ffd84d !important;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+#memberLink {
+    color: #e74c3c !important; /* roșu mai calm */
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+#memberLink:hover {
+    color: #ff6b6b !important;
+    transform: translateY(-2px);
+    text-decoration: none;
 }
 /* =========================
    WRAPPER

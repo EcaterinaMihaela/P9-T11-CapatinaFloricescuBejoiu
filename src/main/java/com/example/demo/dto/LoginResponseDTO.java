@@ -11,4 +11,5 @@ public class LoginResponseDTO {
     private String role;
     private String ok;
     private String email;
+    private Long memberId;
 }
