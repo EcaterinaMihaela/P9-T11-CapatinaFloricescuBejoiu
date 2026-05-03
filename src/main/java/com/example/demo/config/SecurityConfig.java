@@ -24,6 +24,7 @@ public class SecurityConfig {
                     return corsConfig;
                 }))
                 .csrf(csrf -> csrf.disable())
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/login.html",
@@ -40,15 +41,19 @@ public class SecurityConfig {
                                 "/publisher-management.html",
                                 "/category-management.html",
                                 "/librarian-ControlPanel.html",
+                                "/reservations.html",
                                 "/add-book.html",
                                 "/edit-book.html",
                                 "/library-statistics.html",
                                 "/book-details.html",
-                                "/reviews-management.html",
+                                "/librarian-reservationManagement.html",
+                                "/librarian-loanManagement.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
                                 "/users",
+                                "/members",
+                                "/librarians",
                                 "/profiles/**",
                                 "/authors",
                                 "/authors/**",
@@ -57,7 +62,16 @@ public class SecurityConfig {
                                 "/categories",
                                 "/categories/**",
                                 "/publishers/**",
-                                "/reviews/**"
+                                "/reports.html",
+                                "/reports/**",
+                                "/publishers/**",
+                                "/reservations",
+                                "/reservations/**",
+                                "/loans.html",
+                                "/loans",
+                                "/loans/**"
+
+
 
                         ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
@@ -65,19 +79,26 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                         .requestMatchers("/books", "/books/**").permitAll()
                         .requestMatchers("/api/books/**").permitAll()
+                        .requestMatchers("/users/*/role").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/authors/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/publishers/**").permitAll()
 
-                                .requestMatchers(HttpMethod.POST, "/books").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/authors").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/categories").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/publishers").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/books").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/authors").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/categories").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/publishers").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/librarians/**").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/users/*/role").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/loans/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/loans/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())
                 .httpBasic(httpBasic -> httpBasic.disable());
+
 
         return http.build();
     }
