@@ -69,7 +69,9 @@ public class SecurityConfig {
                                 "/reservations/**",
                                 "/loans.html",
                                 "/loans",
-                                "/loans/**"
+                                "/loans/**",
+                                "/reviews/",
+                                "/reviews/**"
 
 
 
