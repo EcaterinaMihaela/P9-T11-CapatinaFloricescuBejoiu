@@ -47,6 +47,7 @@ public class SecurityConfig {
                                 "/library-statistics.html",
                                 "/book-details.html",
                                 "/librarian-reservationManagement.html",
+                                "/librarian-loanManagement.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
@@ -67,6 +68,7 @@ public class SecurityConfig {
                                 "/reservations",
                                 "/reservations/**",
                                 "/loans.html",
+                                "/loans",
                                 "/loans/**"
 
 
@@ -90,6 +92,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/librarians/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/*/role").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/loans/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/loans/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())

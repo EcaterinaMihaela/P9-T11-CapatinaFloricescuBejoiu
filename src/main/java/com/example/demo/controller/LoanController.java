@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/loans")
@@ -56,5 +58,11 @@ public class LoanController {
     @PutMapping("/{id}/return")
     public ResponseEntity<Loan> returnBook(@PathVariable Long id) {
         return ResponseEntity.ok(service.returnBook(id));
+    }
+
+    @PutMapping("/{id}/extend")
+    public ResponseEntity<Loan> extendLoan(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        String newDueDate = body.get("newDueDate");
+        return ResponseEntity.ok(service.extendLoan(id, LocalDate.parse(newDueDate)));
     }
 }
