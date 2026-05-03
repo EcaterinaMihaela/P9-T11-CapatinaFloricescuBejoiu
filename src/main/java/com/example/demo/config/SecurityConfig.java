@@ -24,6 +24,7 @@ public class SecurityConfig {
                     return corsConfig;
                 }))
                 .csrf(csrf -> csrf.disable())
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/login.html",
@@ -61,7 +62,7 @@ public class SecurityConfig {
                                 "/categories/**",
                                 "/publishers/**",
                                 "/reports.html",
-                                "/reports/**"
+                                "/reports/**",
                                 "/publishers/**",
                                 "/reservations",
                                 "/reservations/**",
@@ -93,6 +94,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form.disable())
                 .httpBasic(httpBasic -> httpBasic.disable());
+
 
         return http.build();
     }

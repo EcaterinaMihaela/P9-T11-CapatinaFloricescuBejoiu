@@ -94,9 +94,10 @@ nav a,
 }
 
 .btn-success:hover {
-  filter: brightness(90%);
+  background-color: #458383;
+  filter: none;
+  transform: translateY(-2px);
 }
-
 /* GRID */
 .analytics-grid {
   display: grid;

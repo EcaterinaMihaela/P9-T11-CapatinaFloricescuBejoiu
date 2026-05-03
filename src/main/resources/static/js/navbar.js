@@ -58,6 +58,7 @@ function updateNavbarUser() {
         // LOGICA DE ROLURI
         if (role === "ADMIN") {
             if(adminLink) adminLink.style.display = "block";
+            if (reportsLink) reportsLink.style.display = "block";
         }
         else if (role === "LIBRARIAN") {
             if(librarianLink) librarianLink.style.display = "block";
