@@ -6,6 +6,7 @@ import com.example.demo.service.ReportService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/reports")
@@ -25,6 +26,11 @@ public class ReportController {
     @GetMapping("/{id}")
     public Report getById(@PathVariable Long id) {
         return service.getById(id);
+    }
+
+    @GetMapping("/dashboard")
+    public Map<String, Object> getDashboard(@RequestParam(required = false) String month) {
+        return service.getDashboardData(month);
     }
 
     @PostMapping

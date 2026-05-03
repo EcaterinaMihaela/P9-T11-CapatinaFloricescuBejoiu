@@ -4,6 +4,7 @@ import com.example.demo.dto.ReportDTO;
 import com.example.demo.model.Report;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ReportService {
 
@@ -16,4 +17,6 @@ public interface ReportService {
     Report update(Long id, ReportDTO dto);
 
     void delete(Long id);
+
+    Map<String, Object> getDashboardData(String month);
 }

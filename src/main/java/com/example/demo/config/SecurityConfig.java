@@ -24,6 +24,7 @@ public class SecurityConfig {
                     return corsConfig;
                 }))
                 .csrf(csrf -> csrf.disable())
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/login.html",
@@ -60,12 +61,17 @@ public class SecurityConfig {
                                 "/categories",
                                 "/categories/**",
                                 "/publishers/**",
+                                "/reports.html",
+                                "/reports/**",
+                                "/publishers/**",
                                 "/reservations",
-                                "/reservations/**"
+                                "/reservations/**",
+                                "/loans.html",
+                                "/loans/**"
 
 
 
-                                ).permitAll()
+                        ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
@@ -88,6 +94,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form.disable())
                 .httpBasic(httpBasic -> httpBasic.disable());
+
 
         return http.build();
     }

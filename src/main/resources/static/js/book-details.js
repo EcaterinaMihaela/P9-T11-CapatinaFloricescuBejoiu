@@ -125,7 +125,7 @@ async function postReview(bookId) {
 }
 
 function getCurrentUserId() {
-    return localStorage.getItem("userId"); // sau memberId dacă așa ai salvat
+    return localStorage.getItem("userId");
 }
 
 async function borrowBook() {
@@ -138,6 +138,12 @@ async function borrowBook() {
         alert("You must be logged in!");
         return;
     }
+    const statusEl = document.getElementById('bookStatus');
+    const isBorrowed = statusEl && statusEl.innerText.trim() === "Borrowed";
+    if (isBorrowed) {
+            alert("This book is already borrowed. You can reserve it instead!");
+            return; // Oprim execuția aici, nu mai facem fetch-ul
+        }
 
     const today = new Date().toISOString().split("T")[0];
     const dueDate = new Date();
@@ -156,13 +162,14 @@ async function borrowBook() {
                 returnDate: null,
                 status: "BORROWED",
                 memberId: memberId,
-                librarianId: 1, // temporar (hardcod)
+                librarianId: null,
                 bookId: bookId
             })
         });
 
         if (response.ok) {
             alert("Book borrowed successfully!");
+            location.reload();
         } else {
             const text = await response.text();
             alert(text);
