@@ -1,0 +1,96 @@
+ /* BACKGROUND GENERAL */
+ body {
+     margin: 0;
+     font-family: Arial, sans-serif;
+     background: linear-gradient(120deg, #2c3e50, #4ca1af);
+     min-height: 100vh;
+ }
+
+ /* CONTAINER PRINCIPAL */
+ .loans-container {
+     background: white;
+     margin: 100px auto 40px auto;
+     padding: 30px;
+     border-radius: 14px;
+     width: 90%;
+     max-width: 1000px;
+     box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+ }
+
+ /* TITLU */
+ h2 {
+     text-align: center;
+     color: #2c3e50;
+     font-weight: bold;
+     margin-bottom: 25px;
+ }
+
+ /* TABEL */
+ table {
+     width: 100%;
+     border-collapse: separate;
+     border-spacing: 0 10px;
+ }
+
+ /* HEADER */
+ th {
+     background: #2c3e50 !important;
+     color: white;
+     padding: 14px;
+     text-align: left;
+     border: none;
+ }
+
+ /* ROWS */
+ td {
+     background: #f8f9fa;
+     padding: 14px;
+     border: none;
+     vertical-align: middle;
+ }
+
+ /* HOVER */
+ tr:hover td {
+     background: #eef6f9;
+     transition: 0.2s;
+ }
+
+ /* STATUS */
+ .text-warning {
+     color: #f39c12 !important;
+     font-weight: bold;
+ }
+
+ .text-success {
+     color: #27ae60 !important;
+     font-weight: bold;
+ }
+
+ .text-danger {
+     color: #e74c3c !important;
+     font-weight: bold;
+ }
+
+ /* BUTTON RETURN */
+ .cancel-btn {
+     background: #e74c3c;
+     color: white;
+     border: none;
+     padding: 7px 12px;
+     border-radius: 8px;
+     cursor: pointer;
+     transition: 0.2s ease;
+     font-size: 13px;
+ }
+
+ .cancel-btn:hover {
+     background: #c0392b;
+     transform: scale(1.05);
+ }
+
+ /* EMPTY STATE */
+ td.text-center {
+     padding: 20px;
+     font-style: italic;
+     color: #666;
+ }

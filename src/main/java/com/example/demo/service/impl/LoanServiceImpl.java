@@ -33,44 +33,40 @@ public class LoanServiceImpl implements LoanService {
 
         Loan loan = new Loan();
 
+        // Setează datele primite din frontend
         loan.setBorrowDate(LocalDate.parse(dto.getBorrowDate()));
         loan.setDueDate(LocalDate.parse(dto.getDueDate()));
 
         loan.setReturnDate(null);
         loan.setStatus("BORROWED");
 
+        // Căutare Membru
         Member member = repo.member.findByIdSafe(dto.getMemberId())
                 .orElseThrow(() -> new RuntimeException("Member not found"));
 
-        Librarian librarian = repo.librarian.findByIdSafe(dto.getLibrarianId())
-                .orElseThrow(() -> new RuntimeException("Librarian not found"));
+        Librarian librarian = null;
+        if (dto.getLibrarianId() != null) {
+            librarian = repo.librarian.findByIdSafe(dto.getLibrarianId()).orElse(null);
+        }
+        loan.setLibrarian(librarian);
 
+        // Căutare Cart
         Book book = repo.book.findByIdSafe(dto.getBookId())
                 .orElseThrow(() -> new RuntimeException("Book not found"));
 
-        //  VALIDARE STOCK
+        // Validare stoc
         if (book.getAvailableStock() <= 0) {
             throw new RuntimeException("Book not available");
         }
 
-        //  LIMITĂ BORROW
-        long activeLoans = repo.loan.findAllSafe().stream()
-                .filter(l -> l.getMember().getMemberID().equals(member.getMemberID()))
-                .filter(l -> l.getReturnDate() == null)
-                .count();
-
-        if (activeLoans >= 3) {
-            throw new RuntimeException("Borrowing limit reached");
-        }
-
         loan.setMember(member);
-        loan.setLibrarian(librarian);
         loan.setBook(book);
 
-        // scade stock
+        // Actualizare stoc
         book.setAvailableStock(book.getAvailableStock() - 1);
         repo.book.saveSafe(book);
 
+        // Salvare împrumut
         return repo.loan.saveSafe(loan);
     }
 
@@ -115,13 +111,13 @@ public class LoanServiceImpl implements LoanService {
             throw new RuntimeException("Book already returned");
         }
 
-        // 1. setezi return date
+        // 1. return date
         loan.setReturnDate(LocalDate.now());
 
         // 2. status
         loan.setStatus("RETURNED");
 
-        // 3. returnezi stock la book
+        // 3. return stock la book
         Book book = loan.getBook();
         book.setAvailableStock(book.getAvailableStock() + 1);
         repo.book.saveSafe(book);

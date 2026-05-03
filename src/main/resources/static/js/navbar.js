@@ -36,6 +36,7 @@ function updateNavbarUser() {
     const librarianLink = document.getElementById("librarianLink");
     const memberLink = document.getElementById("memberLink");
     const librarianReservationsLink = document.getElementById("librarianReservationsLink");
+    const loansLink = document.getElementById("loansLink");
 
     if (username && userInfo && logoutBtn) {
         userInfo.style.setProperty("display", "flex", "important");
@@ -49,6 +50,7 @@ function updateNavbarUser() {
         if(adminLink) adminLink.style.display = "none";
         if(librarianLink) librarianLink.style.display = "none";
         if(memberLink) memberLink.style.display = "none";
+        if (loansLink) loansLink.style.display = "none";
 
         // LOGICA DE ROLURI
         if (role === "ADMIN") {
@@ -60,6 +62,7 @@ function updateNavbarUser() {
         }
         else if (role === "MEMBER") {
             if(memberLink) memberLink.style.display = "block";
+            if (loansLink) loansLink.style.display = "block";
         }
 
         setTimeout(() => {

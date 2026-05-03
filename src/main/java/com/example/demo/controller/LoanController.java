@@ -44,4 +44,9 @@ public class LoanController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}/return")
+    public ResponseEntity<Loan> returnBook(@PathVariable Long id) {
+        return ResponseEntity.ok(service.returnBook(id));
+    }
 }
