@@ -48,6 +48,7 @@ public class SecurityConfig {
                                 "/book-details.html",
                                 "/librarian-reservationManagement.html",
                                 "/librarian-loanManagement.html",
+                                "/reviews-management.html",
                                 "/js/**",
                                 "/css/**",
                                 "/auth/**",
@@ -73,8 +74,6 @@ public class SecurityConfig {
                                 "/reviews/",
                                 "/reviews/**"
 
-
-
                         ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
@@ -91,6 +90,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/authors").permitAll()
                         .requestMatchers(HttpMethod.POST, "/categories").permitAll()
                         .requestMatchers(HttpMethod.POST, "/publishers").permitAll()
+
                         .requestMatchers(HttpMethod.PATCH, "/librarians/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/*/role").permitAll()
