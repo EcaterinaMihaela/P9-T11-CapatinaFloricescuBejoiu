@@ -2,17 +2,19 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 
 async function loadDashboard() {
     try {
-        const [booksRes, authorsRes, categoriesRes,reservationsRes] = await Promise.all([
+        const [booksRes, authorsRes, categoriesRes,reservationsRes,loansRes] = await Promise.all([
             fetch("/books"),
             fetch("/authors"),
             fetch("/categories"),
-            fetch("/reservations")
+            fetch("/reservations"),
+            fetch("/loans")
         ]);
 
         const books = await booksRes.json();
         const authors = await authorsRes.json();
         const categories = await categoriesRes.json();
         const reservations = await reservationsRes.json();
+        const loans = await loansRes.json();
 
         document.getElementById("totalBooks").textContent = books.length;
         document.getElementById("availableBooks").textContent =
@@ -26,6 +28,17 @@ const pendingCount = reservations.filter(res => res.status === "PENDING").length
 
         document.getElementById("pendingReservations").textContent = pendingCount;
         document.getElementById("acceptedReservations").textContent = acceptedCount;
+
+        const activeLoans = loans.filter(l => l.status === "BORROWED");
+                const today = new Date();
+
+                const overdueCount = activeLoans.filter(l => {
+                    return new Date(l.dueDate) < today;
+                }).length;
+
+                document.getElementById("totalActiveLoans").textContent = activeLoans.length;
+                document.getElementById("overdueLoans").textContent = overdueCount;
+
         loadRecentBooks(books);
 
     } catch (err) {
