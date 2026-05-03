@@ -38,14 +38,9 @@ public class ReservationServiceImpl implements ReservationService {
         Book book = repo.book.findById(dto.getBookId())
                 .orElseThrow(() -> new RuntimeException("Book not found"));
 
-        // REQ-16: check availability
-        if (book.getAvailableStock() <= 0) {
-            throw new RuntimeException("Book not available for reservation");
-        }
-
         Reservation r = new Reservation();
         r.setReservationDate(dto.getReservationDate());
-        r.setStatus("PENDING"); // IMPORTANT SRS: always start pending
+        r.setStatus("PENDING");
         r.setMember(member);
         r.setBook(book);
 

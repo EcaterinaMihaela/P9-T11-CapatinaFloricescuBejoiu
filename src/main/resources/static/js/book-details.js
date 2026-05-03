@@ -23,6 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
+const actionButtons = document.querySelector(".action-buttons");
+if (actionButtons) {
+    if (userRole !== "MEMBER") {
+        actionButtons.remove();
+    }
+}
 
     if (bookId) {
         loadBookDetails(bookId);
