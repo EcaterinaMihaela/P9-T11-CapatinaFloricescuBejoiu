@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Management - Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+<div id="navbar"></div>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Review Management</h2>
+        <span class="badge bg-danger p-2">Admin Mode</span>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-teal text-white">
+                <tr>
+                    <th class="ps-4">User</th>
+                    <th>Book Title</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="adminReviewTable">
+                <tr>
+                    <td colspan="5" class="text-center py-5">
+                        <div class="spinner-border text-teal" role="status"></div>
+                        <p class="mt-2">Loading reviews...</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<template id="admin-review-row">
+    <tr class="review-row">
+        <td class="ps-4">
+            <strong class="row-user text-dark"></strong>
+        </td>
+        <td><span class="row-book-title fw-semibold text-dark"></span></td>
+        <td class="row-rating text-warning"></td>
+        <td>
+            <div class="row-text text-secondary text-truncate" style="max-width: 350px;"></div>
+        </td>
+        <td class="text-center pe-4">
+            <button class="btn btn-danger-teal btn-sm btn-delete">
+                <i class="bi bi-trash"></i> Delete
+            </button>
+        </td>
+    </tr>
+</template>
+
+<script src="js/navbar.js"></script>
+<script src="js/reviews-management.js"></script>
+</body>
+</html>

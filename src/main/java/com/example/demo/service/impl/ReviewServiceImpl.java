@@ -31,8 +31,12 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review create(ReviewDTO dto) {
+    public List<Review> getReviewsByBookId(Long bookId) {
+        return repo.review.findByBookBookID(bookId);
+    }
 
+    @Override
+    public Review create(ReviewDTO dto) {
         Member member = repo.member.findById(dto.getMemberId()).orElse(null);
         Book book = repo.book.findById(dto.getBookId()).orElse(null);
 
@@ -40,7 +44,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setRating(dto.getRating());
         review.setReviewText(dto.getReviewText());
         review.setReviewDate(LocalDate.now());
-
+        review.setUserName(dto.getUserName());
         review.setMember(member);
         review.setBook(book);
 
@@ -49,19 +53,17 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review update(Long id, ReviewDTO dto) {
-
         return repo.review.findById(id).map(r -> {
-
             Member member = repo.member.findById(dto.getMemberId()).orElse(null);
             Book book = repo.book.findById(dto.getBookId()).orElse(null);
 
             r.setRating(dto.getRating());
             r.setReviewText(dto.getReviewText());
+            r.setUserName(dto.getUserName());
             r.setMember(member);
             r.setBook(book);
 
             return repo.review.save(r);
-
         }).orElse(null);
     }
 

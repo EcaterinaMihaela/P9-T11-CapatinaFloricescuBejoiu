@@ -27,6 +27,11 @@ public class ReviewController {
         return service.getById(id);
     }
 
+    @GetMapping("/book/{bookId}")
+    public List<Review> getByBookId(@PathVariable Long bookId) {
+        return service.getReviewsByBookId(bookId);
+    }
+
     @PostMapping
     public Review create(@RequestBody ReviewDTO dto) {
         return service.create(dto);

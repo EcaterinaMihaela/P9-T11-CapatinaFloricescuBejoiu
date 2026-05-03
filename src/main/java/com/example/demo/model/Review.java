@@ -15,10 +15,12 @@ public class Review {
     private LocalDate reviewDate;
     private int rating;
     private String reviewText;
+    private String userName;
 
     @ManyToOne
     private Member member;
 
     @ManyToOne
+    @JoinColumn(name = "book_ID")
     private Book book;
 }

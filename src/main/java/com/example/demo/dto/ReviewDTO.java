@@ -10,4 +10,5 @@ public class ReviewDTO {
 
     private Long memberId;
     private Long bookId;
+    private String userName;
 }
