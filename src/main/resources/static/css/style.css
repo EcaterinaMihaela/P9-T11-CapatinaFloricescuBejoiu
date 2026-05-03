@@ -101,6 +101,7 @@ body {
 
 #librarianLink,
 #librarianReservationsLink,
+#librarianLoansLink,
 .librarian-only .nav-link {
     color: #f1c40f !important; /* galben soft */
     font-weight: 600;
@@ -109,18 +110,21 @@ body {
 
 #librarianLink:hover,
 #librarianReservationsLink:hover,
+#librarianLoansLink:hover,
 .librarian-only .nav-link:hover {
     color: #ffd84d !important;
     transform: translateY(-2px);
     text-decoration: none;
 }
-#memberLink {
+#memberLink,
+#loansLink {
     color: #e74c3c !important; /* roșu mai calm */
     font-weight: 600;
     transition: 0.25s ease;
 }
 
-#memberLink:hover {
+#memberLink:hover ,
+#loansLink:hover{
     color: #ff6b6b !important;
     transform: translateY(-2px);
     text-decoration: none;

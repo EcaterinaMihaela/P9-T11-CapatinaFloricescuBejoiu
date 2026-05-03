@@ -38,6 +38,7 @@ function updateNavbarUser() {
     const librarianReservationsLink = document.getElementById("librarianReservationsLink");
     const loansLink = document.getElementById("loansLink");
     const reportsLink = document.getElementById("reportsLink"); //
+    const librarianLoansLink = document.getElementById("librarianLoansLink");
 
     if (username && userInfo && logoutBtn) {
         userInfo.style.setProperty("display", "flex", "important");
@@ -53,6 +54,8 @@ function updateNavbarUser() {
         if(memberLink) memberLink.style.display = "none";
         if (loansLink) loansLink.style.display = "none";
         if (reportsLink) reportsLink.style.display = "none";
+        if(librarianReservationsLink) librarianReservationsLink.style.display = "none";
+        if(librarianLoansLink) librarianLoansLink.style.display = "none";
 
 
         // LOGICA DE ROLURI
@@ -64,6 +67,7 @@ function updateNavbarUser() {
             if(librarianLink) librarianLink.style.display = "block";
             if (librarianReservationsLink) librarianReservationsLink.style.display = "block";
             if (reportsLink) reportsLink.style.display = "block";
+            if(librarianLoansLink) librarianLoansLink.style.display = "block";
         }
         else if (role === "MEMBER") {
             if(memberLink) memberLink.style.display = "block";
@@ -85,6 +89,9 @@ function updateNavbarUser() {
         if(adminLink) adminLink.style.display = "none";
         if(librarianLink) librarianLink.style.display = "none";
         if(memberLink) memberLink.style.display = "none";
+        if(loansLink) loansLink.style.display = "none";
+        if(reportsLink) reportsLink.style.display = "none";
         if(librarianReservationsLink) librarianReservationsLink.style.display = "none";
+        if(librarianLoansLink) librarianLoansLink.style.display = "none";
     }
 }

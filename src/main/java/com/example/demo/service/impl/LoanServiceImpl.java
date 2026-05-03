@@ -124,4 +124,18 @@ public class LoanServiceImpl implements LoanService {
 
         return repo.loan.saveSafe(loan);
     }
+
+    @Override
+    public Loan extendLoan(Long loanId, LocalDate newDueDate) {
+        Loan loan = repo.loan.findByIdSafe(loanId)
+                .orElseThrow(() -> new RuntimeException("Loan not found"));
+
+        if (loan.getStatus().equals("RETURNED")) {
+            throw new RuntimeException("Cannot extend a returned book");
+        }
+
+        loan.setDueDate(newDueDate);
+        // Opțional: poți păstra statusul BORROWED sau poți verifica dacă noua dată o scoate din overdue
+        return repo.loan.saveSafe(loan);
+    }
 }

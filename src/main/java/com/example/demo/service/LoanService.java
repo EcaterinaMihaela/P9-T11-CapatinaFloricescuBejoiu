@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.LoanDTO;
 import com.example.demo.model.Loan;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface LoanService {
@@ -17,4 +18,5 @@ public interface LoanService {
 
     void delete(Long id);
     Loan returnBook(Long loanId);
+    Loan extendLoan(Long loanId, LocalDate newDueDate);
 }
