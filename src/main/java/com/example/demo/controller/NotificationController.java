@@ -41,4 +41,10 @@ public class NotificationController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+    @GetMapping("/my-notifications")
+    public List<Notification> getMyNotifications(@RequestParam("username") String username) {
+
+        return service.getByUsername(username);
+    }
+
 }

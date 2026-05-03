@@ -54,6 +54,7 @@ function updateNavbarUser() {
         if(memberLink) memberLink.style.display = "none";
         if (loansLink) loansLink.style.display = "none";
         if (reportsLink) reportsLink.style.display = "none";
+        if(notificationsLink) notificationsLink.style.display = "none";
         if(librarianReservationsLink) librarianReservationsLink.style.display = "none";
         if(librarianLoansLink) librarianLoansLink.style.display = "none";
 
@@ -72,6 +73,7 @@ function updateNavbarUser() {
         else if (role === "MEMBER") {
             if(memberLink) memberLink.style.display = "block";
             if (loansLink) loansLink.style.display = "block";
+            if(notificationsLink) notificationsLink.style.display = "block";
         }
 
         setTimeout(() => {

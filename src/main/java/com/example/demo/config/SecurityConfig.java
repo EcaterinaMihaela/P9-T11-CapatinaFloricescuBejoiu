@@ -73,6 +73,11 @@ public class SecurityConfig {
                                 "/loans/**",
                                 "/reviews/",
                                 "/reviews/**"
+                                "/loans/**",
+                                "/notification.html",
+                                "/notifications/**",
+                                "/notifications"
+
 
 
                         ).permitAll()

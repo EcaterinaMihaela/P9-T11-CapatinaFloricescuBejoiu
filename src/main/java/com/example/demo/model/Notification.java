@@ -22,4 +22,7 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "userID")
     private User user;
+
+
+    private boolean isRead = false;
 }

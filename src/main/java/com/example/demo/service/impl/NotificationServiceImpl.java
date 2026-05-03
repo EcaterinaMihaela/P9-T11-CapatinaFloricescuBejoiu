@@ -65,4 +65,10 @@ public class NotificationServiceImpl implements NotificationService {
     public void delete(Long id) {
         repo.notification.deleteById(id);
     }
+    @Override
+    public List<Notification> getByUsername(String username) {
+        // Folosim Repository-ul pentru a căuta în baza de date
+        return repo.notification.findByUser_UsernameOrderBySendingDateDesc(username);
+    }
+
 }
