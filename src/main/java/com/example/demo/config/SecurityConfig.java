@@ -85,17 +85,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/publishers/**").permitAll()
 
-<<<<<<< HEAD
-                                .requestMatchers(HttpMethod.POST, "/books").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/authors").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/categories").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/publishers").permitAll()
-=======
                         .requestMatchers(HttpMethod.POST, "/books").permitAll()
                         .requestMatchers(HttpMethod.POST, "/authors").permitAll()
                         .requestMatchers(HttpMethod.POST, "/categories").permitAll()
                         .requestMatchers(HttpMethod.POST, "/publishers").permitAll()
->>>>>>> feature/books
+                        
                         .requestMatchers(HttpMethod.PATCH, "/librarians/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/users/*/role").permitAll()
