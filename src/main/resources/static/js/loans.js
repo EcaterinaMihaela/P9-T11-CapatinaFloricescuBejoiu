@@ -54,13 +54,7 @@ async function loadLoans() {
                                ${isOverdue ? 'OVERDUE' : l.status}
                            </span>
                        </td>
-                       <td>
-                           ${isBorrowed ? `
-                               <button onclick="returnBook(${l.loanID})" class="btn btn-sm ${isOverdue ? 'btn-danger' : 'btn-primary'}">
-                                   Return Book
-                               </button>
-                           ` : `<span class="text-muted">Returned on ${l.returnDate || '-'}</span>`}
-                       </td>
+
                    </tr>
                    `;
                });
