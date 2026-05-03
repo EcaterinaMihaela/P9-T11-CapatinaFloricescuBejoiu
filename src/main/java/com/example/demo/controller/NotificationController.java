@@ -41,4 +41,18 @@ public class NotificationController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+    @GetMapping("/my-notifications")
+    public List<Notification> getMyNotifications(@RequestParam("username") String username) {
+
+        return service.getByUsername(username);
+    }
+    @PostMapping("/mark-all-read")
+    public void markAllAsRead(@RequestParam("username") String username) {
+        List<Notification> notifications = service.getByUsername(username);
+        for (Notification n : notifications) {
+            n.setRead(true);
+
+            service.updateStatus(n);
+        }
+    }
 }

@@ -16,4 +16,7 @@ public interface NotificationService {
     Notification update(Long id, NotificationDTO dto);
 
     void delete(Long id);
+
+    List<Notification> getByUsername(String username);
+    void updateStatus(Notification n);
 }
