@@ -932,3 +932,89 @@ table td {
     color: white !important;
     animation: pulse 1.5s infinite;
 }
+/* ==== REVIEW MANAGEMENT PAGE ==== */
+
+.admin-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+}
+
+.admin-container h1 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 0;
+    font-size: 2rem;
+}
+
+.card-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 25px;
+    border: 1px solid #f0f0f0;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 15px;
+    border-bottom: 2px solid #eee;
+}
+
+.table tbody td {
+    padding: 15px;
+    color: #444;
+    vertical-align: middle;
+}
+
+.row-user {
+    color: #5ba4a4;
+    font-weight: 600;
+}
+
+.row-book-title {
+    color: #2c3e50;
+}
+
+.row-text {
+    font-style: italic;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Badge-ul de Admin */
+.badge.bg-danger {
+    background-color: #e63946 !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* DELETE BUTTON */
+.btn-danger-teal {
+    background-color: #e63946;
+    color: white;
+    border: none;
+    padding: 7px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-danger-teal:hover {
+    background-color: #d62828;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    color: white;
+}
+
+.text-teal {
+    color: #5ba4a4 !important;
+}

@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.text())
         .then(html => {
             container.innerHTML = html;
-            // Inițializăm funcțiile după ce HTML-ul a fost încărcat în DOM
             setupLogout();
             updateNavbarUser();
         })
@@ -17,7 +16,7 @@ function setupLogout() {
     if (logoutBtn) {
         logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            localStorage.clear(); // Șterge tot dintr-o singură comandă
+            localStorage.clear();
             window.location.href = "/login.html";
         });
     }
@@ -37,7 +36,8 @@ function updateNavbarUser() {
     const memberLink = document.getElementById("memberLink");
     const librarianReservationsLink = document.getElementById("librarianReservationsLink");
     const loansLink = document.getElementById("loansLink");
-    const reportsLink = document.getElementById("reportsLink"); //
+    const reportsLink = document.getElementById("reportsLink");
+    const reviewsLink = document.getElementById("reviewsLink");
     const librarianLoansLink = document.getElementById("librarianLoansLink");
 
     if (username && userInfo && logoutBtn) {
@@ -57,12 +57,13 @@ function updateNavbarUser() {
         if(notificationsLink) notificationsLink.style.display = "none";
         if(librarianReservationsLink) librarianReservationsLink.style.display = "none";
         if(librarianLoansLink) librarianLoansLink.style.display = "none";
-
+        if(reviewsLink) reviewsLink.style.display = "none";
 
         // LOGICA DE ROLURI
         if (role === "ADMIN") {
             if(adminLink) adminLink.style.display = "block";
             if (reportsLink) reportsLink.style.display = "block";
+            if (reviewsLink) reviewsLink.style.display = "block";
         }
         else if (role === "LIBRARIAN") {
             if(librarianLink) librarianLink.style.display = "block";
@@ -95,5 +96,6 @@ function updateNavbarUser() {
         if(reportsLink) reportsLink.style.display = "none";
         if(librarianReservationsLink) librarianReservationsLink.style.display = "none";
         if(librarianLoansLink) librarianLoansLink.style.display = "none";
+        if(reviewsLink) reviewsLink.style.display = "none";
     }
 }
