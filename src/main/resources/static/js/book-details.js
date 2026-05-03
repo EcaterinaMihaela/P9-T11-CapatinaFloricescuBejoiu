@@ -5,8 +5,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const bookId = urlParams.get('id');
 
     const loggedUser = localStorage.getItem("username") || "Anonymous";
+    const userRole = localStorage.getItem("role"); // 'MEMBER', 'LIBRARIAN', 'ADMIN'
     const userDisplay = document.getElementById("currentUserDisplay");
+
     if (userDisplay) userDisplay.innerText = loggedUser;
+
+    const addReviewSection = document.querySelector(".add-review");
+    if (addReviewSection) {
+        if (userRole !== "MEMBER") {
+            addReviewSection.style.display = "none";
+
+            if (userRole === "LIBRARIAN" || userRole === "ADMIN") {
+                const infoMsg = document.createElement("p");
+                infoMsg.className = "text-muted small text-center py-2 border-top";
+                infoMsg.innerHTML = "<em>View mode.</em>";
+                addReviewSection.parentNode.appendChild(infoMsg);
+            }
+        }
+    }
 
     if (bookId) {
         loadBookDetails(bookId);
@@ -129,7 +145,7 @@ async function postReview(bookId) {
 
             loadReviews(bookId);
         } else {
-            alert("Error saving review.");
+            alert("Error saving review. Only members can post.");
         }
     } catch (err) {
         alert("Server connection error.");
