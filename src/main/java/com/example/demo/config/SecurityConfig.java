@@ -71,7 +71,9 @@ public class SecurityConfig {
                                 "/loans.html",
                                 "/loans",
                                 "/loans/**",
+                                "/reviews/",
                                 "/reviews/**"
+
 
                         ).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
