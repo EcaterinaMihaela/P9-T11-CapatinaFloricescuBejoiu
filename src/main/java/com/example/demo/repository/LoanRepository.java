@@ -6,7 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.awt.print.Pageable;
 import java.util.List;
 
+import java.util.List;
+
 public interface LoanRepository extends BaseRepository<Loan, Long> {
+    List<Loan> findByMember_User_Username(String username);
+
 
     // Calculează numărul total de împrumuturi pe o lună anume
     long countByBorrowDateStartingWith(String month); // ex: "2026-05"
