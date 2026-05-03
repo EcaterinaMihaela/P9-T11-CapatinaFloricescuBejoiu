@@ -4,14 +4,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadLoans() {
     const table = document.getElementById("loansTable");
-    if (!table) return;
+        if (!table) return;
+
+        // 1. Luăm username-ul salvat la login în localStorage
+        const currentUsername = localStorage.getItem("username");
 
     try {
-        // Preluăm toate împrumuturile de la backend
-        const res = await fetch("/loans");
-        if (!res.ok) throw new Error("Failed to fetch loans");
-        
-        const data = await res.json();
+            // 2. Schimbăm URL-ul către noul nostru endpoint /my-loans
+            // Adăugăm și parametrul username pentru a filtra rezultatele
+            const res = await fetch(`/loans/my-loans?username=${currentUsername}`);
+
+            if (!res.ok) throw new Error("Failed to fetch loans");
+
+            const data = await res.json();
 
         table.innerHTML = "";
 
@@ -20,36 +25,45 @@ async function loadLoans() {
             return;
         }
 
-        data.forEach(l => {
-            // Verificăm dacă statusul este BORROWED pentru a afișa butonul de Return
-            const isBorrowed = l.status === "BORROWED";
-            
-            table.innerHTML += `
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img src="${l.book?.imageUrl || 'https://placehold.co/40x60'}" 
-                             style="width:40px; height:60px; margin-right:10px; border-radius:4px;">
-                        <strong>${l.book?.bookTitle ?? "Unknown Book"}</strong>
-                    </div>
-                </td>
-                <td>${l.borrowDate}</td>
-                <td>${l.dueDate}</td>
-                <td>
-                    <span class="badge ${isBorrowed ? 'bg-warning text-dark' : 'bg-success'}">
-                        ${l.status}
-                    </span>
-                </td>
-                <td>
-                    ${isBorrowed ? `
-                        <button onclick="returnBook(${l.loanID})" class="btn btn-sm btn-primary">
-                            Return Book
-                        </button>
-                    ` : `<span class="text-muted">Returned on ${l.returnDate || '-'}</span>`}
-                </td>
-            </tr>
-            `;
-        });
+       const today = new Date();
+               today.setHours(0, 0, 0, 0); // Resetăm ora pentru o comparare corectă
+
+               data.forEach(l => {
+                   const isBorrowed = l.status === "BORROWED";
+
+                   // Verificăm dacă este întârziată
+                   const dueDate = new Date(l.dueDate);
+                   const isOverdue = isBorrowed && dueDate < today;
+
+                   table.innerHTML += `
+                   <tr class="${isOverdue ? 'table-danger' : ''}"> <!-- Înroșim rândul dacă e Overdue -->
+                       <td>
+                           <div class="d-flex align-items-center">
+                               <img src="${l.book?.imageUrl || 'https://placehold.co/40x60'}"
+                                    style="width:40px; height:60px; margin-right:10px; border-radius:4px;">
+                               <div>
+                                   <strong>${l.book?.bookTitle ?? "Unknown Book"}</strong>
+                                   ${isOverdue ? '<br><small class="text-danger fw-bold">OVERDUE</small>' : ''}
+                               </div>
+                           </div>
+                       </td>
+                       <td>${l.borrowDate}</td>
+                       <td class="${isOverdue ? 'text-danger fw-bold' : ''}">${l.dueDate}</td>
+                       <td>
+                           <span class="badge ${isOverdue ? 'bg-danger' : (isBorrowed ? 'bg-warning text-dark' : 'bg-success')}">
+                               ${isOverdue ? 'OVERDUE' : l.status}
+                           </span>
+                       </td>
+                       <td>
+                           ${isBorrowed ? `
+                               <button onclick="returnBook(${l.loanID})" class="btn btn-sm ${isOverdue ? 'btn-danger' : 'btn-primary'}">
+                                   Return Book
+                               </button>
+                           ` : `<span class="text-muted">Returned on ${l.returnDate || '-'}</span>`}
+                       </td>
+                   </tr>
+                   `;
+               });
     } catch (err) {
         console.error("Error loading loans:", err);
         table.innerHTML = "<tr><td colspan='5' class='text-center text-danger'>Error loading data.</td></tr>";

@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.LoanDTO;
 import com.example.demo.model.Loan;
+import com.example.demo.repository.LoanRepository;
 import com.example.demo.service.LoanService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -13,9 +15,11 @@ import java.util.List;
 public class LoanController {
 
     private final LoanService service;
+    private LoanRepository loanRepository;
 
-    public LoanController(LoanService service) {
+    public LoanController(LoanService service, LoanRepository loanRepository) {
         this.service = service;
+        this.loanRepository = loanRepository;
     }
 
     @GetMapping
@@ -26,6 +30,10 @@ public class LoanController {
     @GetMapping("/{id}")
     public ResponseEntity<Loan> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
+    }
+    @GetMapping("/my-loans")
+    public List<Loan> getMyLoans(@RequestParam("username") String username) {
+        return loanRepository.findByMember_User_Username(username);
     }
 
     @PostMapping
