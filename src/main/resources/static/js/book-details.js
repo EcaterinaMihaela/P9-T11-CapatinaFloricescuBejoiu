@@ -37,6 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+function getCurrentUserId() {
+    return localStorage.getItem("userId");
+}
+
 async function loadBookDetails(id) {
     try {
         const response = await fetch(`/books/${id}`);
@@ -100,14 +104,12 @@ async function loadReviews(id) {
 
 function prepareEdit(id, text, rating) {
     currentEditId = id;
-
     document.getElementById("reviewInput").value = text;
     document.getElementById("reviewRating").value = rating;
 
     const btn = document.getElementById("btnPostReview");
     btn.innerText = "Update";
     btn.classList.replace("btn-teal", "btn-warning-teal");
-
     document.getElementById("reviewInput").focus();
 }
 
@@ -120,7 +122,7 @@ async function postReview(bookId) {
 
     const reviewData = {
         bookId: parseInt(bookId),
-        memberId: parseInt(localStorage.getItem("userId")),
+        memberId: parseInt(getCurrentUserId()),
         reviewText: text,
         rating: parseInt(ratingSelect.value),
         userName: localStorage.getItem("username")
@@ -142,7 +144,6 @@ async function postReview(bookId) {
             const btn = document.getElementById("btnPostReview");
             btn.innerText = "Post";
             btn.classList.replace("btn-warning-teal", "btn-teal");
-
             loadReviews(bookId);
         } else {
             alert("Error saving review. Only members can post.");
@@ -168,5 +169,88 @@ async function deleteReview(reviewId) {
         }
     } catch (err) {
         console.error("Error:", err);
+    }
+}
+
+async function borrowBook() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get('id');
+    const memberId = getCurrentUserId();
+
+    if (!memberId || memberId === "null") {
+        alert("You must be logged in as a member to borrow!");
+        return;
+    }
+
+    const statusEl = document.getElementById('bookStatus');
+    if (statusEl && statusEl.innerText.trim() === "Unavailable") {
+        alert("This book is not available for borrowing.");
+        return;
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+    const dueDate = new Date();
+    dueDate.setDate(dueDate.getDate() + 14);
+    const due = dueDate.toISOString().split("T")[0];
+
+    try {
+        const response = await fetch("/loans", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                borrowDate: today,
+                dueDate: due,
+                returnDate: null,
+                status: "BORROWED",
+                memberId: parseInt(memberId),
+                librarianId: null,
+                bookId: parseInt(bookId)
+            })
+        });
+
+        if (response.ok) {
+            alert("Book borrowed successfully!");
+            location.reload();
+        } else {
+            const text = await response.text();
+            alert("Error: " + text);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Server error");
+    }
+}
+
+async function reserveBook() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get('id');
+    const memberId = getCurrentUserId();
+
+    if (!memberId || memberId === "null") {
+        alert("You must be logged in to reserve!");
+        return;
+    }
+
+    try {
+        const response = await fetch("/reservations", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                reservationDate: new Date().toISOString().split("T")[0],
+                status: "PENDING",
+                memberId: parseInt(memberId),
+                bookId: parseInt(bookId)
+            })
+        });
+
+        if (response.ok) {
+            alert("Book reserved successfully!");
+        } else {
+            const text = await response.text();
+            alert("Reservation failed: " + text);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Server error");
     }
 }
