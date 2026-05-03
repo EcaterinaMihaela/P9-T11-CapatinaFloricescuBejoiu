@@ -67,7 +67,9 @@ public class SecurityConfig {
                                 "/reservations",
                                 "/reservations/**",
                                 "/loans.html",
-                                "/loans/**"
+                                "/loans/**",
+                                "/notification.html",
+                                "/notification/**"
 
 
 
