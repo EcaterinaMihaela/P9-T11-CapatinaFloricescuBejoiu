@@ -46,13 +46,5 @@ public class NotificationController {
 
         return service.getByUsername(username);
     }
-    @PostMapping("/mark-all-read")
-    public void markAllAsRead(@RequestParam("username") String username) {
-        List<Notification> notifications = service.getByUsername(username);
-        for (Notification n : notifications) {
-            n.setRead(true);
 
-            service.updateStatus(n);
-        }
-    }
 }

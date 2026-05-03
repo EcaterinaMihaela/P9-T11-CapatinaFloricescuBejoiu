@@ -29,24 +29,26 @@ async function loadNotifications() {
             return;
         }
 
-        listElement.innerHTML = notifications.map(notif => {
-            // Formatare sigură pentru dată și oră (gestionăm Array-ul trimis de Spring)
-            const d = notif.sendingDate;
-            const t = notif.sendingTime;
-            const dateStr = Array.isArray(d) ? `${d[0]}-${d[1]}-${d[2]}` : d;
-            const timeStr = Array.isArray(t) ? `${t[0]}:${t[1]}` : t;
+       listElement.innerHTML = notifications.map(notif => {
+           const d = notif.sendingDate;
+           const t = notif.sendingTime;
+           const dateStr = Array.isArray(d) ? `${d[0]}-${d[1]}-${d[2]}` : d;
+           const timeStr = Array.isArray(t) ? `${t[0]}:${t[1]}` : t;
 
-            return `
-                <div class="notification-item ${notif.isRead ? '' : 'unread'}" id="notif-${notif.notificationID}">
-                    <div class="notif-icon">🔔</div>
-                    <div class="notif-content">
-                        <h3>${notif.type}</h3>
-                        <p>${notif.message}</p>
-                        <span class="notif-date">${dateStr} ${timeStr}</span>
-                    </div>
-                </div>
-            `;
-        }).join('');
+
+           const isReadStatus = (notif.read !== undefined) ? notif.read : notif.isRead;
+
+           return `
+               <div class="notification-item ${isReadStatus ? '' : 'unread'}" id="notif-${notif.notificationID}">
+                   <div class="notif-icon"></div>
+                   <div class="notif-content">
+                       <h3>${notif.type}</h3>
+                       <p>${notif.message}</p>
+                       <span class="notif-date">${dateStr} ${timeStr}</span>
+                   </div>
+               </div>
+           `;
+       }).join('');
 
     } catch (error) {
         console.error("Error details:", error);
@@ -86,8 +88,11 @@ async function updateNotificationBadge() {
         const response = await fetch(`/notifications/my-notifications?username=${username}`);
         const notifications = await response.json();
 
-        // Numărăm notificările care au isRead = false
-        const unreadCount = notifications.filter(n => !n.isRead).length;
+
+       const unreadCount = notifications.filter(n => {
+           const status = (n.read !== undefined) ? n.read : n.isRead;
+           return status === false;
+       }).length;
 
         const badge = document.getElementById("notification-badge");
         if (badge) {

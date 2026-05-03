@@ -18,5 +18,5 @@ public interface NotificationService {
     void delete(Long id);
 
     List<Notification> getByUsername(String username);
-    void updateStatus(Notification n);
+
 }
