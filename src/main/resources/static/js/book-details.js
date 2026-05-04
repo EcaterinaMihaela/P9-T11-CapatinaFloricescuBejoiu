@@ -102,7 +102,7 @@ async function postReview(bookId) {
         bookId: parseInt(bookId),
         commentText: comment,
         rating: 5,
-        userName: localStorage.getItem("username") || "Anonymous"
+        userName: sessionStorage.getItem("username") || "Anonymous"
     };
 
     try {
@@ -125,7 +125,7 @@ async function postReview(bookId) {
 }
 
 function getCurrentUserId() {
-    return localStorage.getItem("userId");
+    return sessionStorage.getItem("userId");
 }
 
 async function borrowBook() {

@@ -40,11 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            localStorage.setItem("role", data.role);
-            localStorage.setItem("userId", data.userId);
-            localStorage.setItem("username", data.username);
-            localStorage.setItem("email", data.email);
-            localStorage.setItem("memberId", data.memberId);
+            sessionStorage.setItem("role", data.role);
+            sessionStorage.setItem("userId", data.userId);
+            sessionStorage.setItem("username", data.username);
+            sessionStorage.setItem("email", data.email);
+            sessionStorage.setItem("memberId", data.memberId);
 
             window.location.replace("/dashboard.html");
 
