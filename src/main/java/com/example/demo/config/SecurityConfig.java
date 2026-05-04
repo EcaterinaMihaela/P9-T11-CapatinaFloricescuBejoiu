@@ -53,6 +53,7 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/auth/**",
                                 "/users",
+                                "/",
                                 "/members",
                                 "/librarians",
                                 "/profiles/**",
