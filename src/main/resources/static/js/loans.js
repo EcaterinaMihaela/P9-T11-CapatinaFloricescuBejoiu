@@ -6,8 +6,8 @@ async function loadLoans() {
     const table = document.getElementById("loansTable");
         if (!table) return;
 
-        // 1. Luăm username-ul salvat la login în localStorage
-        const currentUsername = localStorage.getItem("username");
+        // 1. Luăm username-ul salvat la login în sessionStorage
+        const currentUsername = sessionStorage.getItem("username");
 
     try {
             // 2. Schimbăm URL-ul către noul nostru endpoint /my-loans

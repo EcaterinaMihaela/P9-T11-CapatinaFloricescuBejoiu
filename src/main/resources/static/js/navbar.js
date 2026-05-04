@@ -16,19 +16,20 @@ function setupLogout() {
     if (logoutBtn) {
         logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            localStorage.clear();
+            sessionStorage.clear();
             window.location.href = "/login.html";
         });
     }
 }
 
 function updateNavbarUser() {
-    const username = localStorage.getItem("username");
-    const email = localStorage.getItem("email");
-    const role = localStorage.getItem("role"); // Valori posibile: ADMIN, LIBRARIAN, MEMBER
+    const username = sessionStorage.getItem("username");
+    const email = sessionStorage.getItem("email");
+    const role = sessionStorage.getItem("role"); // Valori posibile: ADMIN, LIBRARIAN, MEMBER
 
     const userInfo = document.getElementById("userInfo");
     const logoutBtn = document.getElementById("logoutBtn");
+    const loginBtn = document.getElementById("loginBtn");
 
     // Referințe către link-urile condiționate
     const adminLink = document.getElementById("adminLink");
@@ -39,10 +40,12 @@ function updateNavbarUser() {
     const reportsLink = document.getElementById("reportsLink");
     const reviewsLink = document.getElementById("reviewsLink");
     const librarianLoansLink = document.getElementById("librarianLoansLink");
+    const notificationsLink = document.getElementById("notificationsLink");
 
     if (username && userInfo && logoutBtn) {
         userInfo.style.setProperty("display", "flex", "important");
         logoutBtn.style.display = "inline-block";
+        if(loginBtn) loginBtn.style.display = "none";
         userInfo.innerHTML = `
             <span class="fw-bold">👤 ${username}</span>
             <span style="font-size: 0.75rem; opacity: 0.8;">${email || ''}</span>
@@ -87,6 +90,7 @@ function updateNavbarUser() {
 
     } else {
         // Dacă nu e logat, ascundem tot
+        if(loginBtn) loginBtn.style.display = "inline-block";
         if(userInfo) userInfo.style.setProperty("display", "none", "important");
         if(logoutBtn) logoutBtn.style.display = "none";
         if(adminLink) adminLink.style.display = "none";

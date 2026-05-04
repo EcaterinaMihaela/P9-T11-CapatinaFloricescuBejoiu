@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('id');
 
-    const loggedUser = localStorage.getItem("username") || "Anonymous";
-    const userRole = localStorage.getItem("role"); // 'MEMBER', 'LIBRARIAN', 'ADMIN'
+    const loggedUser = sessionStorage.getItem("username") || "Anonymous";
+    const userRole = sessionStorage.getItem("role"); // 'MEMBER', 'LIBRARIAN', 'ADMIN'
     const userDisplay = document.getElementById("currentUserDisplay");
 
     if (userDisplay) userDisplay.innerText = loggedUser;
@@ -44,7 +44,7 @@ if (actionButtons) {
 });
 
 function getCurrentUserId() {
-    return localStorage.getItem("userId");
+    return sessionStorage.getItem("userId");
 }
 
 async function loadBookDetails(id) {
@@ -73,7 +73,7 @@ async function loadBookDetails(id) {
 async function loadReviews(id) {
     const reviewsContainer = document.getElementById('reviewsList');
     const template = document.getElementById('review-template');
-    const currentUser = localStorage.getItem("username");
+    const currentUser = sessionStorage.getItem("username");
 
     try {
         const response = await fetch(`/reviews/book/${id}`);
@@ -131,7 +131,7 @@ async function postReview(bookId) {
         memberId: parseInt(getCurrentUserId()),
         reviewText: text,
         rating: parseInt(ratingSelect.value),
-        userName: localStorage.getItem("username")
+        userName: sessionStorage.getItem("username")
     };
 
     const url = currentEditId ? `/reviews/${currentEditId}` : '/reviews';

@@ -1,9 +1,9 @@
 async function loadReservations() {
 
-    const memberId = localStorage.getItem("memberId");
+    const memberId = sessionStorage.getItem("memberId");
 
     if (!memberId) {
-        console.error("No memberId in localStorage");
+        console.error("No memberId in sessionStorage");
         return;
     }
 

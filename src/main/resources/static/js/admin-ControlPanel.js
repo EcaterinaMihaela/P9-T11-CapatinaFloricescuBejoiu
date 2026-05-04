@@ -45,11 +45,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
 
-            console.log("BEFORE:", localStorage);
+            console.log("BEFORE:", sessionStorage);
 
-                localStorage.clear();
+                sessionStorage.clear();
 
-                console.log("AFTER:", localStorage);
+                console.log("AFTER:", sessionStorage);
 
                 setTimeout(() => {
                     window.location.href = "/login.html";
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 /* DELETE USER */
 async function deleteUser(id) {
 
-    const role = localStorage.getItem("role");
+    const role = sessionStorage.getItem("role");
 
     if (role !== "ADMIN") {
         alert("Nu ai dreptul sa stergi utilizatori!");
@@ -119,7 +119,7 @@ async function unbanUser(id) {
 document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "logoutBtn") {
         e.preventDefault();
-        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = "/login.html";
     }
 });

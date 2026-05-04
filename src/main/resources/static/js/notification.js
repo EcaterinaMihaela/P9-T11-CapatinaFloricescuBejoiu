@@ -8,7 +8,7 @@ async function loadNotifications() {
     const listElement = document.getElementById("notificationsList");
     if (!listElement) return;
 
-    const currentUsername = localStorage.getItem("username");
+    const currentUsername = sessionStorage.getItem("username");
 
     if (!currentUsername) {
         listElement.innerHTML = '<p class="text-center">Please login.</p>';
@@ -58,7 +58,7 @@ async function loadNotifications() {
 
 // 2. Funcția pentru butonul "Mark all as read"
 async function markAllAsRead() {
-    const currentUsername = localStorage.getItem("username");
+    const currentUsername = sessionStorage.getItem("username");
 
     try {
         const response = await fetch(`/notifications/mark-all-read?username=${currentUsername}`, {
@@ -81,7 +81,7 @@ async function markAllAsRead() {
 
 // 3. Funcția care actualizează numărul de pe clopoțel
 async function updateNotificationBadge() {
-    const username = localStorage.getItem("username");
+    const username = sessionStorage.getItem("username");
     if (!username) return;
 
     try {
