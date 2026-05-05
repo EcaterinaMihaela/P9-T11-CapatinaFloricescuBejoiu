@@ -114,8 +114,8 @@ td {
 ========================= */
 .btn-action {
     border: none;
-    padding: 4px 8px;   /* 🔥 mai mic */
-    font-size: 12px;    /* 🔥 text mic */
+    padding: 4px 8px;
+    font-size: 12px;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.2s;

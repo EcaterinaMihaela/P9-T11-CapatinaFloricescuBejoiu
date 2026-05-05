@@ -22,6 +22,6 @@ public class Member {
     private String banReason;
 
     @OneToOne
-    @JoinColumn(name = "member_id")  // ← FĂRĂ @MapsId!
+    @JoinColumn(name = "member_id")
     private User user;
 }

@@ -76,7 +76,7 @@ async function deleteUser(id) {
 }
 
 async function changeRole(id, role) {
-    // Folosește URL relativ ca la celelalte funcții
+
     const response = await fetch(`/users/${id}/role`, {
         method: "PATCH",
         headers: {

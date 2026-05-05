@@ -24,7 +24,7 @@ async function loadBooks() {
             const card = document.createElement("div");
             card.className = "book-card";
 
-            // --- SCHIMBARE AICI: Folosim imageUrl din DB sau placeholder dacă e goală ---
+            // --- Folosim imageUrl din DB sau placeholder dacă e goală ---
             const coverImage = book.imageUrl ? book.imageUrl : 'https://placehold.co/55x80?text=No+Cover';
 
             card.innerHTML = `

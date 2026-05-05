@@ -10,7 +10,7 @@ async function loadLoans() {
         const currentUsername = sessionStorage.getItem("username");
 
     try {
-            // 2. Schimbăm URL-ul către noul nostru endpoint /my-loans
+            // 2. Schimbăm URL-ul către endpoint /my-loans
             // Adăugăm și parametrul username pentru a filtra rezultatele
             const res = await fetch(`/loans/my-loans?username=${currentUsername}`);
 
@@ -26,7 +26,7 @@ async function loadLoans() {
         }
 
        const today = new Date();
-               today.setHours(0, 0, 0, 0); // Resetăm ora pentru o comparare corectă
+               today.setHours(0, 0, 0, 0); // Resetăm ora
 
                data.forEach(l => {
                    const isBorrowed = l.status === "BORROWED";

@@ -77,7 +77,7 @@ public class OverdueScannerTask {
             notif.setUser(user);
 
             notificationRepository.save(notif);
-            System.out.println("✅ Notification " + type + " send for: " + user.getUsername());
+            System.out.println("Notification " + type + " send for: " + user.getUsername());
         } else {
             // Nu face nimic, mesajul există deja în DB pentru ziua de azi
             System.out.println("Skipping duplicate for: " + user.getUsername());

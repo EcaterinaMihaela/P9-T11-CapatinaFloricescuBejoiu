@@ -43,7 +43,7 @@ body {
     letter-spacing: 1px;
 }
 
-/* Stil pentru info utilizator să nu fie împrăștiat */
+
 #userInfo {
     line-height: 1.2;
     border-left: 1px solid rgba(255,255,255,0.3);
@@ -118,7 +118,7 @@ body {
 }
 #memberLink,
 #loansLink {
-    color: #e74c3c !important; /* roșu mai calm */
+    color: #e74c3c !important; /* roșu  */
     font-weight: 600;
     transition: 0.25s ease;
 }
@@ -288,9 +288,7 @@ input:focus {
     background: #357f8a;
 }
 
-/* =========================
-   MICI ÎMBUNĂTĂȚIRI UI
-========================= */
+
 
 /* hover pentru toate butoanele */
 button {
